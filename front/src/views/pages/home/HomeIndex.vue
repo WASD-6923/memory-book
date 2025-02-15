@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import HeroView from '@/views/pages/home/partials/HeroView.vue'
+import TopMenu from "@/views/pages/home/partials/TopMenu.vue";
 </script>
 
 <template>
   <HeroView/>
-  <div class="px-6 pt-6 lg:px-20">
 
+  <div class="px-6 pt-6 lg:px-20">
+    <TopMenu />
   </div>
 </template>
 
