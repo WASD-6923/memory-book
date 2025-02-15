@@ -6,7 +6,7 @@ import LogoIcon from '@/components/LogoIcon.vue'
   <div class="layout-footer">
     <LogoIcon />
     <a
-      href="https://github.com/WASD-6923/memory-book"
+      href="https://memory-book.space"
       target="_blank"
       rel="noopener noreferrer"
       class="text-primary font-bold hover:underline"
@@ -18,7 +18,7 @@ import LogoIcon from '@/components/LogoIcon.vue'
       target="_blank"
       rel="noopener noreferrer"
       class="text-primary font-bold hover:underline"
-      >группа</a
+      >Techno-hack</a
     >
     {{ new Date().getFullYear() }}
   </div>
