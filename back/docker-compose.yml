@@ -8,8 +8,8 @@ services:
         extra_hosts:
             - 'host.docker.internal:host-gateway'
         ports:
-            - '127.0.0.1:${BACK_PORT:-8088}:80'
-            - '127.0.0.1:${REVERB_PORT:-8081}:${REVERB_PORT:-8081}'
+            - '127.0.0.1:${BACK_PORT:-8089}:80'
+            - '127.0.0.1:${REVERB_PORT:-8082}:${REVERB_PORT:-8081}'
         environment:
             WWWUSER: '${WWWUSER}'
             XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
