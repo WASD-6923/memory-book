@@ -18,11 +18,11 @@ services:
         volumes:
             - ./:/app
         networks:
-            - aa_oren
+            - memory_book
 
     postgres:
         image: postgres:latest
-        container_name: aaoren_db
+        container_name: memory_book_db
         environment:
             POSTGRES_USER: '${DB_USERNAME}'
             POSTGRES_PASSWORD: '${DB_PASSWORD}'
@@ -32,12 +32,12 @@ services:
         volumes:
             - postgres_data:/var/lib/postgresql/data
         networks:
-            - aa_oren
+            - memory_book
 
 
 networks:
-    aa_oren:
-        name: aa_oren
+    memory_book:
+        name: memory_book
         external: false
 
 volumes:
