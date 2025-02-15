@@ -13,7 +13,7 @@
     <div class="mx-6 md:mx-20 md:mb-8 mt-0 md:mt-6">
       <h1 class="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight mb-2">
         <span class="block">Добро пожаловать!</span
-        ><span class="text-[24px] lg:text-5xl font-light"> Мы рады, что вы здесь.</span>
+        ><span class="text-[24px] lg:text-5xl font-light"> Группа Techno-hack приветствует вас.</span>
       </h1>
 
     </div>
