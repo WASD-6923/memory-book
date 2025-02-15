@@ -203,7 +203,7 @@ const router = createRouter({
   ],
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _, next) => {
   const userStore = useUserStore()
   if (to.meta.auth === true) {
     if (userStore.isLoggedIn) {
