@@ -51,7 +51,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Default Bot Name  curl -X GET "https://api.telegram.org/bot7727012725:AAE4Q-CcfoVUzHkviPZ8cGXMWPEDIkolTg8/getUpdates"
+    | Default Bot Name
 
     |--------------------------------------------------------------------------
     |
