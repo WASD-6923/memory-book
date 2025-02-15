@@ -1,0 +1,6 @@
+
+mutation attachmentDelete($id: ID!) {
+  attachmentDelete(id: $id) {
+    id
+  }
+}

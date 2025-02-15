@@ -1,0 +1,38 @@
+type Permission {
+    id: ID!
+    name: String!
+    guard_name: String!
+    group: PermissionGroup!
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+enum PermissionColumns {
+    ID @enum(value: "id")
+    NAME @enum(value: "name")
+    GUARD_NAME @enum(value: "guard_name")
+}
+
+input PermissionFilter {
+    name: String @ilike(key: "name", template: "%{}%")
+    guard_name: String @ilike(key: "guard_name", template: "%{}%")
+}
+
+extend type Query @guard {
+    permission(id: ID! @eq): Permission! @find @can(ability: "view")
+    permissions(
+        orderBy: _ @orderBy(columnsEnum: "PermissionColumns")
+    ): [Permission!]! @orderBy(column: "name", direction: DESC) @all @can(ability: "viewAny")
+}
+
+input PermissionInput {
+    name: String @rules(apply: ["required",  "string", "max:255"] )
+    guard_name: String @rules(apply: ["required",  "string", "max:255"] )
+    group: PermissionGroup @rules(apply: ["required"])
+}
+
+extend type Mutation @guard {
+    permissionCreate(input: PermissionInput! @spread): Permission @create @can(ability: "create")
+    permissionUpdate(id: ID, input: PermissionInput! @spread): Permission @update  @can(ability: "update")
+    permissionDelete(id: ID! @eq): Permission @delete @can(ability: "delete")
+}

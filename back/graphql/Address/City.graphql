@@ -1,0 +1,43 @@
+type City {
+    id: ID!
+    region_id: String
+    name: String
+    time_zone: String
+
+    region: Region! @belongsTo
+}
+
+enum CityColumns {
+    ID @enum(value: "id")
+    REGION_ID @enum(value: "region_id")
+    NAME @enum(value: "name")
+}
+
+input CityFilter {
+    search: String @trim @scope(name: "search")
+    region_id: String @where(key: "region_id")
+}
+
+input CityUpdateInput {
+    region_id: String @rules(apply: ["required", "exists:cities,id"])
+    name: String @rules(apply: ["required", "string", "max:255"])
+}
+
+extend type Query @guard
+{
+    city(id: ID! @eq): City @find
+
+    cities(
+        first: Int!
+        page: Int!
+        filter: CityFilter
+        orderBy: _ @orderBy(columnsEnum: "CityColumns")
+    ): [City!]! @paginate(defaultCount: 10) @orderBy(column: "name", direction: ASC)
+}
+
+extend type Mutation @guard
+{
+    cityCreate(input: CityUpdateInput! @spread ): City @create
+    cityUpdate(id: ID!, input: CityUpdateInput! @spread): City @update
+    cityDelete(id: ID! @eq): City @delete @can(ability: "delete")
+}

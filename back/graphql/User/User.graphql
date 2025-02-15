@@ -1,0 +1,85 @@
+type User {
+    id: ID!
+    name: String
+    email: String
+    notification_email: String
+    phone: String
+    first_name: String
+    last_name: String
+    middle_name: String
+    email_verified_at: DateTime
+
+    remember_token: String
+    status: UserStatus
+    created_at: DateTime
+    updated_at: DateTime
+
+    fullName: String
+
+    profile: Profile! @hasOne
+    roles: [Role!]!
+}
+
+enum UserColumns {
+    ID @enum(value: "id")
+    NAME @enum(value: "name")
+    EMAIL @enum(value: "email")
+    PHONE @enum(value: "phone")
+    CREATED_AT @enum(value: "created_at")
+    UPDATED_AT @enum(value: "updated_at")
+}
+
+input UserFilter {
+    name: String @ilike(key: "name", template: "%{}%")
+    email: String @ilike(key: "email", template: "%{}%")
+    search: String @trim @scope(name: "search")
+}
+
+extend type Query @guard
+{
+    me: User! @auth
+    user(
+        id: ID @eq @rules(apply: ["prohibits:email", "required_without:email"])
+        email: String @eq @rules(apply: ["prohibits:id", "required_without:id", "email"])
+    ): User @find
+
+    users(
+        first: Int!
+        page: Int!
+        filter: UserFilter
+        orderBy: _ @orderBy(columnsEnum: "UserColumns")
+    ): [User!]! @paginate(defaultCount: 10) @orderBy(column: "name", direction: ASC)
+}
+
+input UserCreateInput {
+    name: String @rules(apply: ["required", "string", "max:255"])
+    email: String @rules(apply: ["required", "email", "unique:users,email"], attribute: "email")
+    notification_email: String @rules(apply: ["nullable", "email", "unique:users,email"], attribute: "notification_email")
+    phone: String @rules(apply: ["required", "string", "max:255", "unique:users,phone"])
+    first_name: String @rules(apply: ["required", "string", "max:255"])
+    last_name: String @rules(apply: ["required", "string", "max:255"])
+    middle_name: String @rules(apply: ["nullable", "string", "max:255"])
+    password: String @rules(apply: ["required", "string", "max:32"])
+    roles: [String] @rules(apply: ["required"]) @rulesForArray(apply: ["required", "exists:roles,id"])
+    status: UserStatus @rules(apply: ["required"])
+}
+input UserUpdateInput {
+    name: String @rules(apply: ["nullable", "string", "max:255"])
+    email: String @rules(apply: ["nullable", "email" ], attribute: "email")
+    password: String @rules(apply: ["nullable", "string", "max:32"])
+    notification_email: String @rules(apply: ["nullable", "email"], attribute: "notification_email")
+    phone: String @rules(apply: ["required", "string", "max:255"])
+    first_name: String @rules(apply: ["required", "string", "max:255"])
+    last_name: String @rules(apply: ["required", "string", "max:255"])
+    middle_name: String @rules(apply: ["nullable", "string", "max:255"])
+    roles: [String] @rules(apply: ["required"]) @rulesForArray(apply: ["exists:roles,id"])
+    status: UserStatus @rules(apply: ["nullable"])
+}
+
+extend type Mutation @guard
+{
+    userCreate(input: UserCreateInput! @spread): User @broadcast(subscription: "userCreated") @canModel(ability: "create")
+    userUpdate(id: ID!, input: UserUpdateInput! @spread): User @canFind(ability: "update", find: "id" )
+    userDelete(id: ID! @whereKey): User! @delete @can(ability: "delete")
+}
+

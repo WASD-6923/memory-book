@@ -1,0 +1,41 @@
+
+"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+"A datetime string with format Y-m-dTH:i:s.uP, e.g. 2020-04-20T16:20:04+04:00, 2020-04-20T16:20:04Z"
+scalar DateTimeTz @scalar(class: "MLL\\GraphQLScalars\\DateTimeTz")
+
+"A date string with format `Y-m-d`, e.g. `2011-05-23`."
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+
+scalar JSON @scalar(class: "MLL\\GraphQLScalars\\JSON")
+
+scalar Email @scalar(class: "MLL\\GraphQLScalars\\Email")
+# scalar Regex @scalar(class: "MLL\\GraphQLScalars\\Regex")
+scalar Null @scalar(class: "MLL\\GraphQLScalars\\NullScalar")
+scalar BigInt @scalar(class: "MLL\\GraphQLScalars\\BigInt")
+scalar Mixed @scalar(class: "MLL\\GraphQLScalars\\MixedScalar")
+scalar ShortTime @scalar(class: "App\\GraphQL\\Scalars\\ShortTime")
+
+"Can be used as an argument to upload files using https://github.com/jaydenseric/graphql-multipart-request-spec"
+scalar Upload @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Upload")
+
+type Version {
+    id: ID!
+}
+"Indicates what fields are available at the top level of a query operation."
+type Query
+type Mutation
+#import Address/Region.graphql
+#import Address/City.graphql
+#import Attachment/Attachment.graphql
+#import Common/Position.graphql
+#import Auth/Auth.graphql
+#import User/User.graphql
+#import User/Role.graphql
+#import Export/ExportFile.graphql
+#import User/Permission.graphql
+#import User/Profile.graphql
+#import Statistics/Statistics.graphql
+#import Notification/Notification.graphql
+#import Notification/Subscription.graphql

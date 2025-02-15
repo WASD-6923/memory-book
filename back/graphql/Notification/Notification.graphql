@@ -1,0 +1,48 @@
+type NotificationDatum {
+    modelId: ID
+    message: String
+    url: String
+    description: String
+    type: String
+}
+
+type Notification {
+    id: ID!
+    type: String
+    notifiable_type: String!
+    notifiable_id: String!
+    data: NotificationDatum
+    read_at: DateTime
+    created_at: DateTime!
+}
+
+input NotificationFilter {
+    userId: String @where(key: "notifiable_id")
+    read_at: DateTime @where(key: "read_at")
+    unRead: Boolean @scope(name: "Unread")
+}
+
+enum NotificationColumns {
+    ID @enum(value: "id")
+    type @enum(value: "type")
+    notifiable_type @enum(value: "notifiable_type")
+    notifiable_id @enum(value: "notifiable_id")
+    read_at @enum(value: "read_at")
+    created_at @enum(value: "created_at")
+    updated_at @enum(value: "updated_at")
+}
+
+extend type Query @guard {
+    notification(id: ID! @eq): Notification @find
+    notifications(
+        first: Int!
+        page: Int!
+        filter: NotificationFilter
+        orderBy: _ @orderBy(columnsEnum: "NotificationColumns")
+    ): [Notification!]! @paginate(defaultCount: 10) @orderBy(column: "created_at", direction: DESC)
+}
+
+extend type Mutation @guard {
+    markAsRead(id: ID): Boolean
+    markAllAsRead: Boolean
+}

@@ -1,0 +1,48 @@
+type Role {
+    id: ID!
+    name: String!
+    title: String!
+    guard_name: String!
+    created_at: DateTime
+    updated_at: DateTime
+
+    permissions: [Permission]
+}
+
+enum RoleColumns {
+    ID @enum(value: "id")
+    NAME @enum(value: "name")
+    TITLE @enum(value: "title")
+}
+
+input RoleFilter {
+    name: String @ilike(key: "name", template: "%{}%")
+    title: String @ilike(key: "title", template: "%{}%")
+}
+
+extend type Query #@guard
+{
+    role(id: ID! @eq): Role! @find #@can(ability: "view")
+    roles(
+        filter: RoleFilter
+        orderBy: _ @orderBy(columnsEnum: "RoleColumns")
+    ): [Role!]! @all @orderBy(column: "name", direction: ASC) #@can(ability: "viewAny")
+}
+
+input PermissionsBelongsToMany {
+    connect: [ID!]
+    sync: [ID!]
+}
+
+input RoleInput {
+    name: String @rules(apply: ["required",  "string", "max:255"] )
+    title: String @rules(apply: ["required",  "string", "max:255"] )
+    guard_name: String @rules(apply: ["required",  "string", "max:255"] )
+    permissions: PermissionsBelongsToMany
+}
+
+extend type Mutation @guard {
+    roleCreate(input: RoleInput! @spread): Role @create @can(ability: "create")
+    roleUpdate(id: ID, input: RoleInput! @spread): Role @update  @can(ability: "update")
+    roleDelete(id: ID! @eq): Role @delete @can(ability: "delete")
+}

@@ -1,0 +1,12 @@
+input ModelPosition {
+    id: ID @rules(apply: ["required", "string"])
+    position: Int @rules(apply: ["required", "int"])
+}
+input PositionInput {
+    positions: [ModelPosition!]!
+    model: String @rules(apply: ["required", "string"])
+}
+
+extend type Mutation @guard {
+    modelReposition(input: PositionInput! @spread): Boolean
+}

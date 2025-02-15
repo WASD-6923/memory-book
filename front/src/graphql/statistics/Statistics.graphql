@@ -1,0 +1,7 @@
+query adminStatistics {
+  adminStatistics {
+    users
+    groups
+    meetings
+  }
+}

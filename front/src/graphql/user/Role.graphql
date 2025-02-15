@@ -1,0 +1,37 @@
+query roles($filter: RoleFilter, $orderBy: [QueryRolesOrderByOrderByClause!]) {
+  roles(filter: $filter, orderBy: $orderBy) {
+    id
+    name
+    title
+  }
+}
+
+query role($id: ID!) {
+  role(id: $id) {
+    id
+    name
+    title
+    permissions {
+      id
+      name
+    }
+  }
+}
+
+mutation roleCreate($input: RoleInput!) {
+  roleCreate(input: $input) {
+    id
+  }
+}
+
+mutation roleUpdate($id: ID!, $input: RoleInput!) {
+  roleUpdate(id: $id, input: $input) {
+    id
+  }
+}
+
+mutation roleDelete($id: ID!) {
+  roleDelete(id: $id) {
+    id
+  }
+}

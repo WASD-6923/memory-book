@@ -1,0 +1,61 @@
+subscription NotificationSubscription {
+  notificationCreated {
+    id
+    type
+    notifiable_id
+    notifiable_type
+    data {
+      modelId
+      message
+      url
+      description
+    }
+  }
+}
+
+query notification($id: ID!) {
+  notification(id: $id) {
+    id
+    notifiable_id
+    notifiable_type
+    data {
+      modelId
+      message
+      url
+      description
+    }
+    created_at
+    read_at
+  }
+}
+
+query notifications($first: Int!, $page: Int!, $filter: NotificationFilter, $orderBy: [QueryNotificationsOrderByOrderByClause!]) {
+  notifications(first: $first, page: $page, filter: $filter, orderBy: $orderBy) {
+    data {
+      id
+      notifiable_id
+      notifiable_type
+      data {
+        modelId
+        message
+        url
+        description
+      }
+      created_at
+      read_at
+    }
+    paginatorInfo {
+      total
+      perPage
+      currentPage
+    }
+  }
+}
+
+mutation markAsRead($id: ID!) {
+  markAsRead(id: $id)
+}
+
+mutation markAllAsRead {
+  markAllAsRead
+}

@@ -1,0 +1,10 @@
+type AdminStatistics {
+    users: Int!
+    groups: Int!
+    meetings: Int!
+}
+
+
+extend type Query @guard {
+    adminStatistics: AdminStatistics
+}

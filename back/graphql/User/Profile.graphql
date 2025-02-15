@@ -1,0 +1,44 @@
+type Profile {
+    id: ID!
+    user_id: String!
+    group_id: String
+    created_at: DateTime
+    updated_at: DateTime
+
+    user: User! @belongsTo
+}
+
+enum ProfileColumns {
+    ID @enum(value: "id")
+    USER_ID @enum(value: "user_id")
+    GROUP_ID @enum(value: "group_id")
+    CREATED_AT @enum(value: "created_at")
+    UPDATED_AT @enum(value: "updated_at")
+}
+
+input ProfileFilter {
+    search: String @trim @scope(name: "search")
+    group_id: String @where(key: "group_id")
+    id: String @where(key: "id")
+}
+
+input ProfileUpdateInput {
+    group_id: String @rules(apply: ["required", "exists:groups,id"])
+}
+
+extend type Query @guard
+{
+    profile(id: ID! @eq): Profile @find
+
+    profiles(
+        first: Int!
+        page: Int!
+        filter: ProfileFilter
+        orderBy: _ @orderBy(columnsEnum: "ProfileColumns")
+    ): [Profile!]! @paginate(defaultCount: 10) @orderBy(column: "id", direction: ASC)
+}
+
+extend type Mutation @guard
+{
+    profileUpdate(id: ID!, input: ProfileUpdateInput! @spread): Profile @update @canFind(ability: "update", find: "id" )
+}

@@ -1,0 +1,107 @@
+query user($id: ID!) {
+  user(id: $id) {
+    id
+    name
+    email
+    notification_email
+    phone
+    first_name
+    last_name
+    middle_name
+    email_verified_at
+    remember_token
+    status
+    created_at
+    updated_at
+    roles {
+      id
+      name
+    }
+    profile {
+     id
+      user_id
+    }
+  }
+}
+
+query userForAdmin($id: ID!) {
+  user(id: $id) {
+    email
+    id
+    name
+    phone
+    status
+    first_name
+    last_name
+    roles {
+      name
+      title
+    }
+    created_at
+    profile {
+      group_id
+    }
+  }
+}
+
+query shortUsersForSelector($first: Int!, $page: Int!, $filter: UserFilter, $orderBy: [QueryUsersOrderByOrderByClause!]) {
+  users(first: $first, page: $page, filter: $filter, orderBy: $orderBy) {
+    data {
+      id
+      fullName
+    }
+    paginatorInfo {
+      perPage
+      total
+      currentPage
+    }
+  }
+}
+
+query users($first: Int!, $page: Int!, $filter: UserFilter, $orderBy: [QueryUsersOrderByOrderByClause!]) {
+  users(first: $first, page: $page, filter: $filter, orderBy: $orderBy) {
+    data {
+      email
+      id
+      name
+      phone
+      status
+      first_name
+      last_name
+      roles {
+        name
+        title
+      }
+      profile {
+        id
+        user_id
+      }
+      created_at
+      updated_at
+    }
+    paginatorInfo {
+      perPage
+      total
+      currentPage
+    }
+  }
+}
+
+mutation userCreate($input: UserCreateInput!) {
+  userCreate(input: $input) {
+    id
+  }
+}
+
+mutation userUpdate($id: ID!, $input: UserUpdateInput!) {
+  userUpdate(id: $id, input: $input) {
+    id
+  }
+}
+
+mutation userDelete($id: ID!) {
+  userDelete(id: $id) {
+    id
+  }
+}
+

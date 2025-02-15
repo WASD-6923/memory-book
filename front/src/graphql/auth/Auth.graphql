@@ -1,0 +1,43 @@
+
+query login($input: LoginInput!) {
+  login(input: $input) {
+    accessToken
+  }
+}
+
+query me {
+  me {
+    id
+    name
+    email
+    notification_email
+    phone
+    first_name
+    last_name
+    middle_name
+    status
+    roles {
+      id
+      name
+      title
+      permissions {
+        id
+        name
+      }
+    }
+    profile {
+      id
+      user_id
+    }
+  }
+}
+
+query refreshToken {
+  refreshToken {
+    accessToken
+  }
+}
+
+query logout {
+  logout
+}

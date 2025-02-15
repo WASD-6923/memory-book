@@ -1,0 +1,26 @@
+query permissions($orderBy: [QueryPermissionsOrderByOrderByClause!]) {
+    permissions(orderBy: $orderBy) {
+        id
+        name
+        group
+    }
+}
+
+
+mutation permissionCreate($input: PermissionInput!) {
+    permissionCreate(input: $input) {
+        id
+    }
+}
+
+mutation permissionUpdate($id: ID!, $input: PermissionInput!) {
+    permissionUpdate(id: $id, input: $input) {
+        id
+    }
+}
+
+mutation permissionDelete($id: ID!) {
+    permissionDelete(id: $id) {
+        id
+    }
+}

@@ -1,0 +1,3 @@
+mutation modelReposition($input: PositionInput!) {
+  modelReposition(input: $input)
+}

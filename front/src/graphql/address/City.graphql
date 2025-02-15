@@ -1,0 +1,38 @@
+query city($id: ID!) {
+  city(id: $id) {
+    id
+    name
+  }
+}
+
+query cities($first: Int!, $page: Int!, $filter: CityFilter, $orderBy: [QueryCitiesOrderByOrderByClause!]) {
+  cities(first: $first, page: $page, filter: $filter, orderBy: $orderBy) {
+    data {
+      id
+      name
+    }
+    paginatorInfo {
+      currentPage
+      perPage
+      total
+    }
+  }
+}
+
+mutation cityCreate($input: CityUpdateInput!) {
+  cityCreate(input: $input) {
+    id
+  }
+}
+
+mutation cityUpdate($id: ID!, $input: CityUpdateInput!) {
+  cityUpdate(id: $id, input: $input) {
+    id
+  }
+}
+
+mutation cityDelete($id: ID!) {
+  cityDelete(id: $id) {
+    id
+  }
+}

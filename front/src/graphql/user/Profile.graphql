@@ -1,0 +1,43 @@
+query profile($id: ID!) {
+  profile(id: $id) {
+    id
+    user_id
+    user {
+      email
+      phone
+      first_name
+      last_name
+    }
+
+  }
+}
+
+query profiles($first: Int!, $page: Int!, $filter: ProfileFilter, $orderBy: [QueryProfilesOrderByOrderByClause!]) {
+  profiles(first: $first, page: $page, filter: $filter, orderBy: $orderBy) {
+    data {
+      id
+      user_id
+      user {
+        first_name
+        last_name
+        email
+        phone
+      }
+      group_id
+      group {
+        name
+      }
+    }
+    paginatorInfo {
+      perPage
+      total
+      currentPage
+    }
+  }
+}
+
+mutation profileUpdate($id: ID!, $input: ProfileUpdateInput!) {
+  profileUpdate(id: $id, input: $input) {
+    id
+  }
+}

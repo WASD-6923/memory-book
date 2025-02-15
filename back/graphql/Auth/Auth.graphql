@@ -1,0 +1,19 @@
+type Auth {
+    accessToken: String
+    user: User
+    error: Boolean!
+    errorMessage: String
+    authMethod: AuthMethod
+}
+input LoginInput {
+    email: String @rules(apply: ["required", "string", "max:255"]),
+    password: String @rules(apply: ["required", "string", "max:255"]),
+}
+
+
+extend type Query {
+    login(input: LoginInput!): Auth
+    refreshToken: Auth! @guard
+    logout: Boolean @guard
+
+}

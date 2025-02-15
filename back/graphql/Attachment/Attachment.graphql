@@ -1,0 +1,19 @@
+type Attachment {
+    id: ID!
+    type: Int!
+    attached_type: String!
+    attached_id: String!
+    name: String
+    path: String!
+    url: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+
+extend type Mutation @guard
+{
+    # attachmentCreate(input: LocationUpdateInput! @spread ): Location
+    # attachmentUpdate(id: ID!, input: LocationUpdateInput! @spread): Location
+    attachmentDelete(id: ID! @eq): Attachment @delete
+}

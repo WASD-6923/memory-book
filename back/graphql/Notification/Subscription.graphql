@@ -1,0 +1,4 @@
+type Subscription {
+    notificationCreated: Notification @subscription(class: "App\\GraphQL\\Subscriptions\\Notification\\NotificationCreated")
+    userCreated: User @subscription(class: "App\\GraphQL\\Subscriptions\\User\\UserCreated")
+}
