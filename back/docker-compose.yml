@@ -31,7 +31,7 @@ services:
         ports:
             - '5436:5432'
         volumes:
-            - postgres_data:/var/lib/postgresql/data
+            - memory_book_data:/var/lib/postgresql/data
         networks:
             - memory_book
 
@@ -42,4 +42,4 @@ networks:
         external: false
 
 volumes:
-    postgres_data:
+    memory_book_data:
