@@ -7,7 +7,7 @@ import TopMenu from "@/views/pages/home/partials/TopMenu.vue";
   <HeroView/>
 
   <div class=" pt-6 px-20">
-    <TopMenu />
+<!--    <TopMenu />-->
   </div>
 </template>
 
