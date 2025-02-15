@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import { computed, onMounted, PropType, ref } from 'vue'
-import { Profile, ProfileUpdateInput, useGroupsQuery, useProfileUpdateMutation } from '@/generated/graphqlOperations.js'
+import { Profile, ProfileUpdateInput,useProfileUpdateMutation } from '@/generated/graphqlOperations.js'
 import { useErrorsStore } from '@/stores/useErrors.js'
 import { useToast } from 'primevue/usetoast'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import FieldError from '@/components/errors/FieldError.vue'
+
 
 const { t } = useI18n()
 const router = useRouter()
@@ -28,11 +28,6 @@ const props = defineProps({
   },
 })
 
-const { result: groupsResult } = useGroupsQuery({
-  first: 1000,
-  page: 1,
-})
-const groups = computed(() => groupsResult.value?.groups.data.map((t) => ({ id: t.id.toString(), name: t.name })))
 const localModel = ref<Partial<ProfileUpdateInput>>()
 
 onMounted(() => {
@@ -78,7 +73,7 @@ const handleCancel = () => {
         v-if="localModel"
         class="col-12"
       >
-        <div class="flex flex-col gap-4 w-full">
+<!--        <div class="flex flex-col gap-4 w-full">
           <div class="flex flex-col md:flex-row gap-4">
             <div class="flex flex-wrap gap-2 w-full">
               <label>Домашняя группа</label>
@@ -96,7 +91,7 @@ const handleCancel = () => {
               />
             </div>
           </div>
-        </div>
+        </div>-->
 
         <div class="flex flex-row-reverse mt-4">
           <Button
