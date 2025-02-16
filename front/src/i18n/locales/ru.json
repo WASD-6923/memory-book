@@ -62,7 +62,8 @@
     "countries": "Страны",
     "applicationSamples": "Образцы заявлений",
     "realtyImport": "Импорт объектов недвижимости",
-    "userProfiles": "Профили пользователей"
+    "userProfiles": "Профили пользователей",
+    "municipals": "МО"
   },
   "common": {
     "mainTitle": "Недвижимость",

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Enums\Address\MunicipalType;
 use App\Enums\Auth\AuthMethod;
 use App\Enums\Auth\AuthProvider;
 use App\Enums\Auth\AuthStage;
@@ -11,6 +12,7 @@ use App\Enums\Transaction\TransactionCategory;
 use App\Enums\Transaction\TransactionType;
 use App\Enums\User\PermissionGroup;
 use App\Enums\User\UserStatus;
+use App\Models\Address\Municipal;
 use App\Models\Location\Location;
 use App\Models\Location\LocationEvent;
 use App\Models\User\Profile;
@@ -38,10 +40,8 @@ class AppServiceProvider extends ServiceProvider
         $typeRegistry->register(new PhpEnumType(AuthProvider::class));
         $typeRegistry->register(new PhpEnumType(AuthMethod::class));
         $typeRegistry->register(new PhpEnumType(AuthStage::class));
-        $typeRegistry->register(new PhpEnumType(TransactionCategory::class));
-        $typeRegistry->register(new PhpEnumType(TransactionType::class));
-        $typeRegistry->register(new PhpEnumType(LocationType::class));
-        $typeRegistry->register(new PhpEnumType(LocationStatus::class));
+        $typeRegistry->register(new PhpEnumType(MunicipalType::class));
+
     }
 
     /**

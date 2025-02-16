@@ -28,6 +28,7 @@ type Query
 type Mutation
 #import Address/Region.graphql
 #import Address/City.graphql
+#import Address/Municipal.graphql
 #import Attachment/Attachment.graphql
 #import Common/Position.graphql
 #import Auth/Auth.graphql

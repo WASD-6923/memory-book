@@ -1,0 +1,40 @@
+query municipal($id: ID!) {
+  municipal(id: $id) {
+    id
+    name
+    type
+  }
+}
+
+query municipals($first: Int!, $page: Int!, $filter: MunicipalFilter, $orderBy: [QueryMunicipalsOrderByOrderByClause!]) {
+  municipals(first: $first, page: $page, filter: $filter, orderBy: $orderBy) {
+    data {
+      id
+      name
+      type
+    }
+    paginatorInfo {
+      currentPage
+      perPage
+      total
+    }
+  }
+}
+
+mutation municipalCreate($input: MunicipalUpdateInput!) {
+  municipalCreate(input: $input) {
+    id
+  }
+}
+
+mutation municipalUpdate($id: ID!, $input: MunicipalUpdateInput!) {
+  municipalUpdate(id: $id, input: $input) {
+    id
+  }
+}
+
+mutation municipalDelete($id: ID!) {
+  municipalDelete(id: $id) {
+    id
+  }
+}

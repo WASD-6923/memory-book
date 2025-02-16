@@ -73,125 +73,6 @@ export enum AuthStage {
   Register = 'REGISTER'
 }
 
-export type Book = {
-  __typename?: 'Book';
-  author: User;
-  bookGroups: Array<BookGroup>;
-  book_author?: Maybe<Scalars['String']['output']>;
-  cover?: Maybe<Scalars['String']['output']>;
-  created_at: Scalars['DateTime']['output'];
-  created_by?: Maybe<Scalars['String']['output']>;
-  description?: Maybe<Scalars['String']['output']>;
-  groups: Array<Group>;
-  id: Scalars['ID']['output'];
-  isbn?: Maybe<Scalars['String']['output']>;
-  link?: Maybe<Scalars['String']['output']>;
-  pages?: Maybe<Scalars['Int']['output']>;
-  price?: Maybe<Scalars['Float']['output']>;
-  publisher?: Maybe<Scalars['String']['output']>;
-  title: Scalars['String']['output'];
-  updated_at: Scalars['DateTime']['output'];
-  updated_by?: Maybe<Scalars['String']['output']>;
-  updater: User;
-  year?: Maybe<Scalars['Int']['output']>;
-};
-
-export enum BookColumns {
-  BookAuthor = 'BOOK_AUTHOR',
-  CreatedAt = 'CREATED_AT',
-  Id = 'ID',
-  Isbn = 'ISBN',
-  Price = 'PRICE',
-  Title = 'TITLE',
-  UpdatedAt = 'UPDATED_AT',
-  Year = 'YEAR'
-}
-
-export type BookFilter = {
-  id?: InputMaybe<Scalars['String']['input']>;
-  priceGte?: InputMaybe<Scalars['Int']['input']>;
-  priceLte?: InputMaybe<Scalars['Int']['input']>;
-  search?: InputMaybe<Scalars['String']['input']>;
-  yearGte?: InputMaybe<Scalars['Int']['input']>;
-  yearLte?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type BookGroup = {
-  __typename?: 'BookGroup';
-  author: User;
-  book: Book;
-  book_id: Scalars['String']['output'];
-  created_at: Scalars['DateTime']['output'];
-  created_by: Scalars['String']['output'];
-  group: Group;
-  group_id: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
-  price?: Maybe<Scalars['Float']['output']>;
-  quantity?: Maybe<Scalars['Int']['output']>;
-  updated_at: Scalars['DateTime']['output'];
-  updated_by: Scalars['String']['output'];
-  updater: User;
-};
-
-export enum BookGroupColumns {
-  BookId = 'BOOK_ID',
-  CreatedAt = 'CREATED_AT',
-  GroupId = 'GROUP_ID',
-  Id = 'ID',
-  Price = 'PRICE',
-  Quantity = 'QUANTITY',
-  UpdatedAt = 'UPDATED_AT'
-}
-
-export type BookGroupFilter = {
-  book_id?: InputMaybe<Scalars['String']['input']>;
-  group_id?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['String']['input']>;
-  priceGte?: InputMaybe<Scalars['Int']['input']>;
-  priceLte?: InputMaybe<Scalars['Int']['input']>;
-  quantityGte?: InputMaybe<Scalars['Int']['input']>;
-  quantityLte?: InputMaybe<Scalars['Int']['input']>;
-  search?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** A paginated list of BookGroup items. */
-export type BookGroupPaginator = {
-  __typename?: 'BookGroupPaginator';
-  /** A list of BookGroup items. */
-  data: Array<BookGroup>;
-  /** Pagination information about the list of items. */
-  paginatorInfo: PaginatorInfo;
-};
-
-export type BookGroupUpdateInput = {
-  book_id?: InputMaybe<Scalars['String']['input']>;
-  group_id?: InputMaybe<Scalars['String']['input']>;
-  price?: InputMaybe<Scalars['Float']['input']>;
-  quantity?: InputMaybe<Scalars['Int']['input']>;
-};
-
-/** A paginated list of Book items. */
-export type BookPaginator = {
-  __typename?: 'BookPaginator';
-  /** A list of Book items. */
-  data: Array<Book>;
-  /** Pagination information about the list of items. */
-  paginatorInfo: PaginatorInfo;
-};
-
-export type BookUpdateInput = {
-  book_author?: InputMaybe<Scalars['String']['input']>;
-  cover?: InputMaybe<Scalars['String']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
-  isbn?: InputMaybe<Scalars['String']['input']>;
-  link?: InputMaybe<Scalars['String']['input']>;
-  pages?: InputMaybe<Scalars['Int']['input']>;
-  price?: InputMaybe<Scalars['Float']['input']>;
-  publisher?: InputMaybe<Scalars['String']['input']>;
-  title?: InputMaybe<Scalars['String']['input']>;
-  year?: InputMaybe<Scalars['Int']['input']>;
-};
-
 export type City = {
   __typename?: 'City';
   id: Scalars['ID']['output'];
@@ -226,296 +107,9 @@ export type CityUpdateInput = {
   region_id?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type Daily = {
-  __typename?: 'Daily';
-  content: Scalars['String']['output'];
-  created_at: Scalars['DateTime']['output'];
-  date: Scalars['Date']['output'];
-  description: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
-  name: Scalars['String']['output'];
-  sources: Scalars['String']['output'];
-  updated_at: Scalars['DateTime']['output'];
-};
-
-export enum DailyColumns {
-  CreatedAt = 'CREATED_AT',
-  Date = 'DATE',
-  Id = 'ID',
-  Name = 'NAME',
-  UpdatedAt = 'UPDATED_AT'
-}
-
-export type DailyFilter = {
-  date?: InputMaybe<Scalars['Date']['input']>;
-  id?: InputMaybe<Scalars['String']['input']>;
-  search?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** A paginated list of Daily items. */
-export type DailyPaginator = {
-  __typename?: 'DailyPaginator';
-  /** A list of Daily items. */
-  data: Array<Daily>;
-  /** Pagination information about the list of items. */
-  paginatorInfo: PaginatorInfo;
-};
-
-export type DailyUpdateInput = {
-  content: Scalars['String']['input'];
-  date?: InputMaybe<Scalars['String']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  sources: Scalars['String']['input'];
-};
-
 export type ExportFile = {
   __typename?: 'ExportFile';
   path?: Maybe<Scalars['String']['output']>;
-};
-
-export type Group = {
-  __typename?: 'Group';
-  address?: Maybe<Scalars['String']['output']>;
-  avatar?: Maybe<Scalars['String']['output']>;
-  balance: Scalars['Float']['output'];
-  birthday?: Maybe<Scalars['Date']['output']>;
-  city?: Maybe<City>;
-  city_id: Scalars['String']['output'];
-  created_at?: Maybe<Scalars['DateTime']['output']>;
-  description?: Maybe<Scalars['String']['output']>;
-  email?: Maybe<Scalars['String']['output']>;
-  friday?: Maybe<Scalars['DateTimeTz']['output']>;
-  id: Scalars['ID']['output'];
-  lat?: Maybe<Scalars['Float']['output']>;
-  lon?: Maybe<Scalars['Float']['output']>;
-  monday?: Maybe<Scalars['DateTimeTz']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
-  phone?: Maybe<Scalars['String']['output']>;
-  saturday?: Maybe<Scalars['DateTimeTz']['output']>;
-  sunday?: Maybe<Scalars['DateTimeTz']['output']>;
-  telegram?: Maybe<Scalars['String']['output']>;
-  thursday?: Maybe<Scalars['DateTimeTz']['output']>;
-  tuesday?: Maybe<Scalars['DateTimeTz']['output']>;
-  updated_at?: Maybe<Scalars['DateTime']['output']>;
-  user: User;
-  wednesday?: Maybe<Scalars['DateTimeTz']['output']>;
-};
-
-export enum GroupColumns {
-  Birthday = 'BIRTHDAY',
-  CityId = 'CITY_ID',
-  CreatedAt = 'CREATED_AT',
-  Id = 'ID',
-  Name = 'NAME',
-  UpdatedAt = 'UPDATED_AT'
-}
-
-export type GroupFilter = {
-  city_id?: InputMaybe<Scalars['Int']['input']>;
-  id?: InputMaybe<Scalars['String']['input']>;
-  search?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** A paginated list of Group items. */
-export type GroupPaginator = {
-  __typename?: 'GroupPaginator';
-  /** A list of Group items. */
-  data: Array<Group>;
-  /** Pagination information about the list of items. */
-  paginatorInfo: PaginatorInfo;
-};
-
-export type GroupUpdateInput = {
-  address?: InputMaybe<Scalars['String']['input']>;
-  birthday?: InputMaybe<Scalars['String']['input']>;
-  city_id?: InputMaybe<Scalars['String']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
-  email?: InputMaybe<Scalars['String']['input']>;
-  friday?: InputMaybe<Scalars['String']['input']>;
-  lat?: InputMaybe<Scalars['Float']['input']>;
-  lon?: InputMaybe<Scalars['Float']['input']>;
-  monday?: InputMaybe<Scalars['String']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  phone?: InputMaybe<Scalars['String']['input']>;
-  saturday?: InputMaybe<Scalars['String']['input']>;
-  sunday?: InputMaybe<Scalars['String']['input']>;
-  telegram?: InputMaybe<Scalars['String']['input']>;
-  thursday?: InputMaybe<Scalars['String']['input']>;
-  tuesday?: InputMaybe<Scalars['String']['input']>;
-  wednesday?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type InfoSource = {
-  __typename?: 'InfoSource';
-  created_at?: Maybe<Scalars['DateTime']['output']>;
-  created_by: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
-  name: Scalars['String']['output'];
-  updated_at?: Maybe<Scalars['DateTime']['output']>;
-  updated_by: Scalars['String']['output'];
-};
-
-export enum InfoSourceColumns {
-  CreatedAt = 'CREATED_AT',
-  Id = 'ID',
-  UpdatedAt = 'UPDATED_AT',
-  Name = 'name'
-}
-
-export type InfoSourceFilter = {
-  search?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** A paginated list of InfoSource items. */
-export type InfoSourcePaginator = {
-  __typename?: 'InfoSourcePaginator';
-  /** A list of InfoSource items. */
-  data: Array<InfoSource>;
-  /** Pagination information about the list of items. */
-  paginatorInfo: PaginatorInfo;
-};
-
-export type InfoSourceUpdateInput = {
-  name?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type InfoSourcesBelongsToMany = {
-  connect?: InputMaybe<Array<Scalars['ID']['input']>>;
-  sync?: InputMaybe<Array<Scalars['ID']['input']>>;
-};
-
-export type Location = {
-  __typename?: 'Location';
-  address?: Maybe<Scalars['String']['output']>;
-  attachments: Array<Attachment>;
-  author: User;
-  city: City;
-  city_id: Scalars['String']['output'];
-  contacts?: Maybe<Scalars['String']['output']>;
-  created_at: Scalars['DateTime']['output'];
-  created_by: Scalars['String']['output'];
-  curator?: Maybe<User>;
-  curator_id?: Maybe<Scalars['String']['output']>;
-  description?: Maybe<Scalars['String']['output']>;
-  id: Scalars['ID']['output'];
-  installation_date?: Maybe<Scalars['Date']['output']>;
-  is_required_maintenance?: Maybe<Scalars['Boolean']['output']>;
-  last_maintenance?: Maybe<Scalars['Date']['output']>;
-  lat?: Maybe<Scalars['Float']['output']>;
-  lon?: Maybe<Scalars['Float']['output']>;
-  maintenance_period?: Maybe<Scalars['Int']['output']>;
-  status: LocationStatus;
-  type: LocationType;
-  updated_at: Scalars['DateTime']['output'];
-  updated_by: Scalars['String']['output'];
-  updater: User;
-};
-
-export enum LocationColumns {
-  Address = 'ADDRESS',
-  CityId = 'CITY_ID',
-  CreatedAt = 'CREATED_AT',
-  CuratorId = 'CURATOR_ID',
-  Id = 'ID',
-  InstallationDate = 'INSTALLATION_DATE',
-  IsRequiredMaintenance = 'IS_REQUIRED_MAINTENANCE',
-  LastMaintenance = 'LAST_MAINTENANCE',
-  MaintenancePeriod = 'MAINTENANCE_PERIOD',
-  Status = 'STATUS',
-  Type = 'TYPE',
-  UpdatedAt = 'UPDATED_AT'
-}
-
-export type LocationEvent = {
-  __typename?: 'LocationEvent';
-  author: User;
-  created_at: Scalars['DateTime']['output'];
-  created_by: Scalars['String']['output'];
-  description?: Maybe<Scalars['String']['output']>;
-  id: Scalars['ID']['output'];
-  location: Location;
-  location_id: Scalars['String']['output'];
-  status?: Maybe<LocationStatus>;
-  updated_at?: Maybe<Scalars['DateTime']['output']>;
-  updated_by?: Maybe<Scalars['String']['output']>;
-  updater: User;
-};
-
-export enum LocationEventColumns {
-  Id = 'ID',
-  LocationId = 'LOCATION_ID',
-  Status = 'STATUS'
-}
-
-export type LocationEventFilter = {
-  id?: InputMaybe<Scalars['String']['input']>;
-  location_id?: InputMaybe<Scalars['String']['input']>;
-  search?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** A paginated list of LocationEvent items. */
-export type LocationEventPaginator = {
-  __typename?: 'LocationEventPaginator';
-  /** A list of LocationEvent items. */
-  data: Array<LocationEvent>;
-  /** Pagination information about the list of items. */
-  paginatorInfo: PaginatorInfo;
-};
-
-export type LocationEventUpdateInput = {
-  description?: InputMaybe<Scalars['String']['input']>;
-  location_id?: InputMaybe<Scalars['String']['input']>;
-  status?: InputMaybe<LocationStatus>;
-};
-
-export type LocationFilter = {
-  city?: InputMaybe<Scalars['String']['input']>;
-  curator_id?: InputMaybe<Scalars['String']['input']>;
-  installation_date?: InputMaybe<Scalars['String']['input']>;
-  is_required_maintenance?: InputMaybe<Scalars['String']['input']>;
-  last_maintenance?: InputMaybe<Scalars['String']['input']>;
-  maintenance_period?: InputMaybe<Scalars['String']['input']>;
-  search?: InputMaybe<Scalars['String']['input']>;
-  status?: InputMaybe<Scalars['String']['input']>;
-  type?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** A paginated list of Location items. */
-export type LocationPaginator = {
-  __typename?: 'LocationPaginator';
-  /** A list of Location items. */
-  data: Array<Location>;
-  /** Pagination information about the list of items. */
-  paginatorInfo: PaginatorInfo;
-};
-
-export enum LocationStatus {
-  Draft = 'DRAFT',
-  Fail = 'FAIL',
-  Success = 'SUCCESS',
-  Terminated = 'TERMINATED'
-}
-
-export enum LocationType {
-  Stand = 'STAND'
-}
-
-export type LocationUpdateInput = {
-  address?: InputMaybe<Scalars['String']['input']>;
-  city_id?: InputMaybe<Scalars['String']['input']>;
-  contacts?: InputMaybe<Scalars['String']['input']>;
-  curator_id?: InputMaybe<Scalars['String']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
-  files?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  installation_date?: InputMaybe<Scalars['Date']['input']>;
-  is_required_maintenance?: InputMaybe<Scalars['Boolean']['input']>;
-  last_maintenance?: InputMaybe<Scalars['Date']['input']>;
-  lat?: InputMaybe<Scalars['Float']['input']>;
-  lon?: InputMaybe<Scalars['Float']['input']>;
-  maintenance_period?: InputMaybe<Scalars['Int']['input']>;
-  status?: InputMaybe<LocationStatus>;
-  type?: InputMaybe<LocationType>;
 };
 
 export type LoginInput = {
@@ -523,107 +117,62 @@ export type LoginInput = {
   password?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type Meeting = {
-  __typename?: 'Meeting';
-  author: User;
-  cash?: Maybe<Scalars['Int']['output']>;
-  created_at?: Maybe<Scalars['DateTime']['output']>;
-  created_by: Scalars['String']['output'];
-  date?: Maybe<Scalars['Date']['output']>;
-  group: Group;
-  group_id: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
-  moderator?: Maybe<User>;
-  moderator_id?: Maybe<Scalars['String']['output']>;
-  moderator_name?: Maybe<Scalars['String']['output']>;
-  non_cash?: Maybe<Scalars['Int']['output']>;
-  number_of_newcomers?: Maybe<Scalars['Int']['output']>;
-  number_of_participants?: Maybe<Scalars['Int']['output']>;
-  topic?: Maybe<Scalars['String']['output']>;
-  topic_by_daily_planner?: Maybe<Scalars['String']['output']>;
-  updated_at?: Maybe<Scalars['DateTime']['output']>;
-  updated_by: Scalars['String']['output'];
-  updater: User;
-};
-
-export enum MeetingColumns {
-  CreatedAt = 'CREATED_AT',
-  Date = 'DATE',
-  GroupId = 'GROUP_ID',
-  Id = 'ID',
-  ModeratorId = 'MODERATOR_ID',
-  UpdatedAt = 'UPDATED_AT'
-}
-
-export type MeetingFilter = {
-  group_id?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['String']['input']>;
-  search?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** A paginated list of Meeting items. */
-export type MeetingPaginator = {
-  __typename?: 'MeetingPaginator';
-  /** A list of Meeting items. */
-  data: Array<Meeting>;
-  /** Pagination information about the list of items. */
-  paginatorInfo: PaginatorInfo;
-};
-
-export type MeetingUpdateInput = {
-  cash?: InputMaybe<Scalars['Int']['input']>;
-  date?: InputMaybe<Scalars['Date']['input']>;
-  group_id?: InputMaybe<Scalars['String']['input']>;
-  moderator_id?: InputMaybe<Scalars['String']['input']>;
-  moderator_name?: InputMaybe<Scalars['String']['input']>;
-  non_cash?: InputMaybe<Scalars['Int']['input']>;
-  number_of_newcomers?: InputMaybe<Scalars['Int']['input']>;
-  number_of_participants?: InputMaybe<Scalars['Int']['input']>;
-  topic?: InputMaybe<Scalars['String']['input']>;
-  topic_by_daily_planner?: InputMaybe<Scalars['String']['input']>;
-};
-
 export type ModelPosition = {
   id?: InputMaybe<Scalars['ID']['input']>;
   position?: InputMaybe<Scalars['Int']['input']>;
 };
 
+export type Municipal = {
+  __typename?: 'Municipal';
+  created_at: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  type?: Maybe<MunicipalType>;
+  updated_at: Scalars['DateTime']['output'];
+};
+
+export enum MunicipalColumns {
+  Id = 'ID',
+  Name = 'NAME',
+  Type = 'TYPE'
+}
+
+export type MunicipalFilter = {
+  search?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** A paginated list of Municipal items. */
+export type MunicipalPaginator = {
+  __typename?: 'MunicipalPaginator';
+  /** A list of Municipal items. */
+  data: Array<Municipal>;
+  /** Pagination information about the list of items. */
+  paginatorInfo: PaginatorInfo;
+};
+
+export enum MunicipalType {
+  CityDistrict = 'CityDistrict',
+  Municipality = 'Municipality'
+}
+
+export type MunicipalUpdateInput = {
+  name?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<MunicipalType>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   attachmentDelete?: Maybe<Attachment>;
-  bookCreate?: Maybe<Book>;
-  bookDelete?: Maybe<Book>;
-  bookGroupCreate?: Maybe<BookGroup>;
-  bookGroupDelete?: Maybe<BookGroup>;
-  bookGroupUpdate?: Maybe<BookGroup>;
-  bookUpdate?: Maybe<Book>;
   cityCreate?: Maybe<City>;
   cityDelete?: Maybe<City>;
   cityUpdate?: Maybe<City>;
-  dailyCreate: Daily;
-  dailyDelete?: Maybe<Daily>;
-  dailyUpdate: Daily;
-  groupCreate: Group;
-  groupDelete?: Maybe<Group>;
-  groupUpdate: Group;
-  infoSourceCreate: InfoSource;
-  infoSourceDelete?: Maybe<InfoSource>;
-  infoSourceUpdate: InfoSource;
-  locationCreate?: Maybe<Location>;
-  locationDelete?: Maybe<Location>;
-  locationEventCreate?: Maybe<LocationEvent>;
-  locationEventDelete?: Maybe<LocationEvent>;
-  locationEventUpdate?: Maybe<LocationEvent>;
-  locationUpdate?: Maybe<Location>;
   markAllAsRead?: Maybe<Scalars['Boolean']['output']>;
   markAsRead?: Maybe<Scalars['Boolean']['output']>;
-  meetingCreate?: Maybe<Meeting>;
-  meetingDelete?: Maybe<Meeting>;
-  meetingUpdate?: Maybe<Meeting>;
   modelReposition?: Maybe<Scalars['Boolean']['output']>;
-  newcomerCreate?: Maybe<Newcomer>;
-  newcomerDelete?: Maybe<Newcomer>;
-  newcomerUpdate?: Maybe<Newcomer>;
+  municipalCreate?: Maybe<Municipal>;
+  municipalDelete?: Maybe<Municipal>;
+  municipalUpdate?: Maybe<Municipal>;
   permissionCreate?: Maybe<Permission>;
   permissionDelete?: Maybe<Permission>;
   permissionUpdate?: Maybe<Permission>;
@@ -631,9 +180,6 @@ export type Mutation = {
   roleCreate?: Maybe<Role>;
   roleDelete?: Maybe<Role>;
   roleUpdate?: Maybe<Role>;
-  transactionCreate?: Maybe<Transaction>;
-  transactionDelete?: Maybe<Transaction>;
-  transactionUpdate?: Maybe<Transaction>;
   userCreate?: Maybe<User>;
   userDelete: User;
   userUpdate?: Maybe<User>;
@@ -642,38 +188,6 @@ export type Mutation = {
 
 export type MutationAttachmentDeleteArgs = {
   id: Scalars['ID']['input'];
-};
-
-
-export type MutationBookCreateArgs = {
-  input: BookUpdateInput;
-};
-
-
-export type MutationBookDeleteArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationBookGroupCreateArgs = {
-  input: BookGroupUpdateInput;
-};
-
-
-export type MutationBookGroupDeleteArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationBookGroupUpdateArgs = {
-  id: Scalars['ID']['input'];
-  input: BookGroupUpdateInput;
-};
-
-
-export type MutationBookUpdateArgs = {
-  id: Scalars['ID']['input'];
-  input: BookUpdateInput;
 };
 
 
@@ -693,104 +207,8 @@ export type MutationCityUpdateArgs = {
 };
 
 
-export type MutationDailyCreateArgs = {
-  input: DailyUpdateInput;
-};
-
-
-export type MutationDailyDeleteArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationDailyUpdateArgs = {
-  id: Scalars['ID']['input'];
-  input: DailyUpdateInput;
-};
-
-
-export type MutationGroupCreateArgs = {
-  input: GroupUpdateInput;
-};
-
-
-export type MutationGroupDeleteArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationGroupUpdateArgs = {
-  id: Scalars['ID']['input'];
-  input: GroupUpdateInput;
-};
-
-
-export type MutationInfoSourceCreateArgs = {
-  input: InfoSourceUpdateInput;
-};
-
-
-export type MutationInfoSourceDeleteArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationInfoSourceUpdateArgs = {
-  id: Scalars['ID']['input'];
-  input: InfoSourceUpdateInput;
-};
-
-
-export type MutationLocationCreateArgs = {
-  input: LocationUpdateInput;
-};
-
-
-export type MutationLocationDeleteArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationLocationEventCreateArgs = {
-  input: LocationEventUpdateInput;
-};
-
-
-export type MutationLocationEventDeleteArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationLocationEventUpdateArgs = {
-  id: Scalars['ID']['input'];
-  input: LocationEventUpdateInput;
-};
-
-
-export type MutationLocationUpdateArgs = {
-  id: Scalars['ID']['input'];
-  input: LocationUpdateInput;
-};
-
-
 export type MutationMarkAsReadArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
-};
-
-
-export type MutationMeetingCreateArgs = {
-  input: MeetingUpdateInput;
-};
-
-
-export type MutationMeetingDeleteArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationMeetingUpdateArgs = {
-  id: Scalars['ID']['input'];
-  input: MeetingUpdateInput;
 };
 
 
@@ -799,19 +217,19 @@ export type MutationModelRepositionArgs = {
 };
 
 
-export type MutationNewcomerCreateArgs = {
-  input: NewcomerUpdateInput;
+export type MutationMunicipalCreateArgs = {
+  input: MunicipalUpdateInput;
 };
 
 
-export type MutationNewcomerDeleteArgs = {
+export type MutationMunicipalDeleteArgs = {
   id: Scalars['ID']['input'];
 };
 
 
-export type MutationNewcomerUpdateArgs = {
+export type MutationMunicipalUpdateArgs = {
   id: Scalars['ID']['input'];
-  input: NewcomerUpdateInput;
+  input: MunicipalUpdateInput;
 };
 
 
@@ -853,22 +271,6 @@ export type MutationRoleUpdateArgs = {
 };
 
 
-export type MutationTransactionCreateArgs = {
-  input: TransactionUpdateInput;
-};
-
-
-export type MutationTransactionDeleteArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationTransactionUpdateArgs = {
-  id: Scalars['ID']['input'];
-  input: TransactionUpdateInput;
-};
-
-
 export type MutationUserCreateArgs = {
   input: UserCreateInput;
 };
@@ -882,76 +284,6 @@ export type MutationUserDeleteArgs = {
 export type MutationUserUpdateArgs = {
   id: Scalars['ID']['input'];
   input: UserUpdateInput;
-};
-
-export type Newcomer = {
-  __typename?: 'Newcomer';
-  age?: Maybe<Scalars['Int']['output']>;
-  author: User;
-  comment?: Maybe<Scalars['String']['output']>;
-  created_at?: Maybe<Scalars['DateTime']['output']>;
-  created_by: Scalars['String']['output'];
-  curator?: Maybe<User>;
-  curator_id?: Maybe<Scalars['String']['output']>;
-  date: Scalars['Date']['output'];
-  group: Group;
-  group_id: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
-  infoSources: Array<InfoSource>;
-  info_source_id?: Maybe<Scalars['String']['output']>;
-  is_himself?: Maybe<Scalars['Boolean']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
-  phone?: Maybe<Scalars['String']['output']>;
-  relative?: Maybe<Scalars['String']['output']>;
-  updated_at?: Maybe<Scalars['DateTime']['output']>;
-  updated_by: Scalars['String']['output'];
-  updater: User;
-};
-
-export enum NewcomerColumns {
-  Age = 'AGE',
-  CreatedAt = 'CREATED_AT',
-  CuratorId = 'CURATOR_ID',
-  Date = 'DATE',
-  GroupId = 'GROUP_ID',
-  Id = 'ID',
-  InfoSourceId = 'INFO_SOURCE_ID',
-  IsHimself = 'IS_HIMSELF',
-  Name = 'NAME',
-  Relative = 'RELATIVE',
-  UpdatedAt = 'UPDATED_AT'
-}
-
-export type NewcomerFilter = {
-  curator_id?: InputMaybe<Scalars['Int']['input']>;
-  date?: InputMaybe<Scalars['Date']['input']>;
-  group_id?: InputMaybe<Scalars['Int']['input']>;
-  id?: InputMaybe<Scalars['String']['input']>;
-  info_source_ids?: InputMaybe<Array<Scalars['String']['input']>>;
-  is_himself?: InputMaybe<Scalars['Boolean']['input']>;
-  search?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** A paginated list of Newcomer items. */
-export type NewcomerPaginator = {
-  __typename?: 'NewcomerPaginator';
-  /** A list of Newcomer items. */
-  data: Array<Newcomer>;
-  /** Pagination information about the list of items. */
-  paginatorInfo: PaginatorInfo;
-};
-
-export type NewcomerUpdateInput = {
-  age?: InputMaybe<Scalars['Int']['input']>;
-  comment?: InputMaybe<Scalars['String']['input']>;
-  curator_id?: InputMaybe<Scalars['String']['input']>;
-  date?: InputMaybe<Scalars['Date']['input']>;
-  group_id?: InputMaybe<Scalars['String']['input']>;
-  infoSources?: InputMaybe<InfoSourcesBelongsToMany>;
-  is_himself: Scalars['Boolean']['input'];
-  name?: InputMaybe<Scalars['String']['input']>;
-  phone?: InputMaybe<Scalars['String']['input']>;
-  relative?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type Notification = {
@@ -1098,7 +430,6 @@ export type PositionInput = {
 export type Profile = {
   __typename?: 'Profile';
   created_at?: Maybe<Scalars['DateTime']['output']>;
-  group?: Maybe<Group>;
   group_id?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   updated_at?: Maybe<Scalars['DateTime']['output']>;
@@ -1137,30 +468,13 @@ export type ProfileUpdateInput = {
 export type Query = {
   __typename?: 'Query';
   adminStatistics?: Maybe<AdminStatistics>;
-  book?: Maybe<Book>;
-  bookGroup?: Maybe<BookGroup>;
-  bookGroups: BookGroupPaginator;
-  books: BookPaginator;
   cities: CityPaginator;
   city?: Maybe<City>;
-  dailies: DailyPaginator;
-  daily?: Maybe<Daily>;
-  dailyByDate?: Maybe<Daily>;
-  group?: Maybe<Group>;
-  groups: GroupPaginator;
-  infoSource?: Maybe<InfoSource>;
-  infoSources: InfoSourcePaginator;
-  location?: Maybe<Location>;
-  locationEvent?: Maybe<LocationEvent>;
-  locationEvents: LocationEventPaginator;
-  locations: LocationPaginator;
   login?: Maybe<Auth>;
   logout?: Maybe<Scalars['Boolean']['output']>;
   me: User;
-  meeting?: Maybe<Meeting>;
-  meetings: MeetingPaginator;
-  newcomer?: Maybe<Newcomer>;
-  newcomers: NewcomerPaginator;
+  municipal?: Maybe<Municipal>;
+  municipals: MunicipalPaginator;
   notification?: Maybe<Notification>;
   notifications: NotificationPaginator;
   permission: Permission;
@@ -1170,40 +484,8 @@ export type Query = {
   refreshToken: Auth;
   role: Role;
   roles: Array<Role>;
-  transaction?: Maybe<Transaction>;
-  transactions: TransactionPaginator;
   user?: Maybe<User>;
   users: UserPaginator;
-};
-
-
-/** Indicates what fields are available at the top level of a query operation. */
-export type QueryBookArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-/** Indicates what fields are available at the top level of a query operation. */
-export type QueryBookGroupArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-/** Indicates what fields are available at the top level of a query operation. */
-export type QueryBookGroupsArgs = {
-  filter?: InputMaybe<BookGroupFilter>;
-  first?: Scalars['Int']['input'];
-  orderBy?: InputMaybe<Array<QueryBookGroupsOrderByOrderByClause>>;
-  page?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-/** Indicates what fields are available at the top level of a query operation. */
-export type QueryBooksArgs = {
-  filter?: InputMaybe<BookFilter>;
-  first?: Scalars['Int']['input'];
-  orderBy?: InputMaybe<Array<QueryBooksOrderByOrderByClause>>;
-  page?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -1223,118 +505,22 @@ export type QueryCityArgs = {
 
 
 /** Indicates what fields are available at the top level of a query operation. */
-export type QueryDailiesArgs = {
-  filter?: InputMaybe<DailyFilter>;
-  first?: Scalars['Int']['input'];
-  orderBy?: InputMaybe<Array<QueryDailiesOrderByOrderByClause>>;
-  page?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-/** Indicates what fields are available at the top level of a query operation. */
-export type QueryDailyArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-/** Indicates what fields are available at the top level of a query operation. */
-export type QueryDailyByDateArgs = {
-  date: Scalars['Date']['input'];
-};
-
-
-/** Indicates what fields are available at the top level of a query operation. */
-export type QueryGroupArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-/** Indicates what fields are available at the top level of a query operation. */
-export type QueryGroupsArgs = {
-  filter?: InputMaybe<GroupFilter>;
-  first?: Scalars['Int']['input'];
-  orderBy?: InputMaybe<Array<QueryGroupsOrderByOrderByClause>>;
-  page?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-/** Indicates what fields are available at the top level of a query operation. */
-export type QueryInfoSourceArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-/** Indicates what fields are available at the top level of a query operation. */
-export type QueryInfoSourcesArgs = {
-  filter?: InputMaybe<InfoSourceFilter>;
-  first?: Scalars['Int']['input'];
-  orderBy?: InputMaybe<Array<QueryInfoSourcesOrderByOrderByClause>>;
-  page?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-/** Indicates what fields are available at the top level of a query operation. */
-export type QueryLocationArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-/** Indicates what fields are available at the top level of a query operation. */
-export type QueryLocationEventArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-/** Indicates what fields are available at the top level of a query operation. */
-export type QueryLocationEventsArgs = {
-  filter?: InputMaybe<LocationEventFilter>;
-  first?: Scalars['Int']['input'];
-  orderBy?: InputMaybe<Array<QueryLocationEventsOrderByOrderByClause>>;
-  page?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-/** Indicates what fields are available at the top level of a query operation. */
-export type QueryLocationsArgs = {
-  filter?: InputMaybe<LocationFilter>;
-  first?: Scalars['Int']['input'];
-  orderBy?: InputMaybe<Array<QueryLocationsOrderByOrderByClause>>;
-  page?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-/** Indicates what fields are available at the top level of a query operation. */
 export type QueryLoginArgs = {
   input: LoginInput;
 };
 
 
 /** Indicates what fields are available at the top level of a query operation. */
-export type QueryMeetingArgs = {
+export type QueryMunicipalArgs = {
   id: Scalars['ID']['input'];
 };
 
 
 /** Indicates what fields are available at the top level of a query operation. */
-export type QueryMeetingsArgs = {
-  filter?: InputMaybe<MeetingFilter>;
+export type QueryMunicipalsArgs = {
+  filter?: InputMaybe<MunicipalFilter>;
   first?: Scalars['Int']['input'];
-  orderBy?: InputMaybe<Array<QueryMeetingsOrderByOrderByClause>>;
-  page?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-/** Indicates what fields are available at the top level of a query operation. */
-export type QueryNewcomerArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-/** Indicates what fields are available at the top level of a query operation. */
-export type QueryNewcomersArgs = {
-  filter?: InputMaybe<NewcomerFilter>;
-  first?: Scalars['Int']['input'];
-  orderBy?: InputMaybe<Array<QueryNewcomersOrderByOrderByClause>>;
+  orderBy?: InputMaybe<Array<QueryMunicipalsOrderByOrderByClause>>;
   page?: InputMaybe<Scalars['Int']['input']>;
 };
 
@@ -1395,21 +581,6 @@ export type QueryRolesArgs = {
 
 
 /** Indicates what fields are available at the top level of a query operation. */
-export type QueryTransactionArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-/** Indicates what fields are available at the top level of a query operation. */
-export type QueryTransactionsArgs = {
-  filter?: InputMaybe<TransactionFilter>;
-  first?: Scalars['Int']['input'];
-  orderBy?: InputMaybe<Array<QueryTransactionsOrderByOrderByClause>>;
-  page?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-/** Indicates what fields are available at the top level of a query operation. */
 export type QueryUserArgs = {
   email?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['ID']['input']>;
@@ -1424,22 +595,6 @@ export type QueryUsersArgs = {
   page?: InputMaybe<Scalars['Int']['input']>;
 };
 
-/** Order by clause for Query.bookGroups.orderBy. */
-export type QueryBookGroupsOrderByOrderByClause = {
-  /** The column that is used for ordering. */
-  column: BookGroupColumns;
-  /** The direction that is used for ordering. */
-  order: SortOrder;
-};
-
-/** Order by clause for Query.books.orderBy. */
-export type QueryBooksOrderByOrderByClause = {
-  /** The column that is used for ordering. */
-  column: BookColumns;
-  /** The direction that is used for ordering. */
-  order: SortOrder;
-};
-
 /** Order by clause for Query.cities.orderBy. */
 export type QueryCitiesOrderByOrderByClause = {
   /** The column that is used for ordering. */
@@ -1448,58 +603,10 @@ export type QueryCitiesOrderByOrderByClause = {
   order: SortOrder;
 };
 
-/** Order by clause for Query.dailies.orderBy. */
-export type QueryDailiesOrderByOrderByClause = {
+/** Order by clause for Query.municipals.orderBy. */
+export type QueryMunicipalsOrderByOrderByClause = {
   /** The column that is used for ordering. */
-  column: DailyColumns;
-  /** The direction that is used for ordering. */
-  order: SortOrder;
-};
-
-/** Order by clause for Query.groups.orderBy. */
-export type QueryGroupsOrderByOrderByClause = {
-  /** The column that is used for ordering. */
-  column: GroupColumns;
-  /** The direction that is used for ordering. */
-  order: SortOrder;
-};
-
-/** Order by clause for Query.infoSources.orderBy. */
-export type QueryInfoSourcesOrderByOrderByClause = {
-  /** The column that is used for ordering. */
-  column: InfoSourceColumns;
-  /** The direction that is used for ordering. */
-  order: SortOrder;
-};
-
-/** Order by clause for Query.locationEvents.orderBy. */
-export type QueryLocationEventsOrderByOrderByClause = {
-  /** The column that is used for ordering. */
-  column: LocationEventColumns;
-  /** The direction that is used for ordering. */
-  order: SortOrder;
-};
-
-/** Order by clause for Query.locations.orderBy. */
-export type QueryLocationsOrderByOrderByClause = {
-  /** The column that is used for ordering. */
-  column: LocationColumns;
-  /** The direction that is used for ordering. */
-  order: SortOrder;
-};
-
-/** Order by clause for Query.meetings.orderBy. */
-export type QueryMeetingsOrderByOrderByClause = {
-  /** The column that is used for ordering. */
-  column: MeetingColumns;
-  /** The direction that is used for ordering. */
-  order: SortOrder;
-};
-
-/** Order by clause for Query.newcomers.orderBy. */
-export type QueryNewcomersOrderByOrderByClause = {
-  /** The column that is used for ordering. */
-  column: NewcomerColumns;
+  column: MunicipalColumns;
   /** The direction that is used for ordering. */
   order: SortOrder;
 };
@@ -1532,14 +639,6 @@ export type QueryProfilesOrderByOrderByClause = {
 export type QueryRolesOrderByOrderByClause = {
   /** The column that is used for ordering. */
   column: RoleColumns;
-  /** The direction that is used for ordering. */
-  order: SortOrder;
-};
-
-/** Order by clause for Query.transactions.orderBy. */
-export type QueryTransactionsOrderByOrderByClause = {
-  /** The column that is used for ordering. */
-  column: TransactionColumns;
   /** The direction that is used for ordering. */
   order: SortOrder;
 };
@@ -1600,84 +699,6 @@ export type Subscription = {
   __typename?: 'Subscription';
   notificationCreated?: Maybe<Notification>;
   userCreated?: Maybe<User>;
-};
-
-export type Transaction = {
-  __typename?: 'Transaction';
-  amount?: Maybe<Scalars['Float']['output']>;
-  author: User;
-  category?: Maybe<TransactionCategory>;
-  comment?: Maybe<Scalars['String']['output']>;
-  created_at?: Maybe<Scalars['DateTime']['output']>;
-  created_by?: Maybe<Scalars['String']['output']>;
-  group: Group;
-  group_id: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
-  meeting?: Maybe<Meeting>;
-  meeting_id?: Maybe<Scalars['String']['output']>;
-  type?: Maybe<TransactionType>;
-  updated_at?: Maybe<Scalars['DateTime']['output']>;
-  updated_by?: Maybe<Scalars['String']['output']>;
-  updater: User;
-};
-
-/** ExpenseTransactionCategory */
-export enum TransactionCategory {
-  CashOnBook = 'CASH_ON_BOOK',
-  CashOnMeeting = 'CASH_ON_MEETING',
-  NonCashOnBook = 'NON_CASH_ON_BOOK',
-  NonCashOnMeeting = 'NON_CASH_ON_MEETING',
-  OfficeRent = 'OFFICE_RENT',
-  Other = 'OTHER',
-  TeaAndSugar = 'TEA_AND_SUGAR'
-}
-
-export enum TransactionColumns {
-  Amount = 'AMOUNT',
-  Category = 'CATEGORY',
-  CreatedAt = 'CREATED_AT',
-  GroupId = 'GROUP_ID',
-  Id = 'ID',
-  MeetingId = 'MEETING_ID',
-  Type = 'TYPE',
-  UpdatedAt = 'UPDATED_AT'
-}
-
-export type TransactionFilter = {
-  amountGte?: InputMaybe<Scalars['Float']['input']>;
-  amountLte?: InputMaybe<Scalars['Float']['input']>;
-  category?: InputMaybe<TransactionCategory>;
-  createdBy?: InputMaybe<Scalars['String']['input']>;
-  groupId?: InputMaybe<Scalars['Int']['input']>;
-  id?: InputMaybe<Scalars['String']['input']>;
-  meetingId?: InputMaybe<Scalars['Int']['input']>;
-  search?: InputMaybe<Scalars['String']['input']>;
-  type?: InputMaybe<TransactionType>;
-  updatedBy?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** A paginated list of Transaction items. */
-export type TransactionPaginator = {
-  __typename?: 'TransactionPaginator';
-  /** A list of Transaction items. */
-  data: Array<Transaction>;
-  /** Pagination information about the list of items. */
-  paginatorInfo: PaginatorInfo;
-};
-
-/** TransactionStatus */
-export enum TransactionType {
-  Expense = 'EXPENSE',
-  Income = 'INCOME'
-}
-
-export type TransactionUpdateInput = {
-  amount?: InputMaybe<Scalars['Float']['input']>;
-  category?: InputMaybe<TransactionCategory>;
-  comment?: InputMaybe<Scalars['String']['input']>;
-  group_id?: InputMaybe<Scalars['String']['input']>;
-  meeting_id?: InputMaybe<Scalars['String']['input']>;
-  type?: InputMaybe<TransactionType>;
 };
 
 /** Specify if you want to include or exclude trashed results from a query. */
@@ -1816,6 +837,45 @@ export type CityDeleteMutationVariables = Exact<{
 
 export type CityDeleteMutation = { __typename?: 'Mutation', cityDelete?: { __typename?: 'City', id: string } | null };
 
+export type MunicipalQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type MunicipalQuery = { __typename?: 'Query', municipal?: { __typename?: 'Municipal', id: string, name: string, type?: MunicipalType | null } | null };
+
+export type MunicipalsQueryVariables = Exact<{
+  first: Scalars['Int']['input'];
+  page: Scalars['Int']['input'];
+  filter?: InputMaybe<MunicipalFilter>;
+  orderBy?: InputMaybe<Array<QueryMunicipalsOrderByOrderByClause> | QueryMunicipalsOrderByOrderByClause>;
+}>;
+
+
+export type MunicipalsQuery = { __typename?: 'Query', municipals: { __typename?: 'MunicipalPaginator', data: Array<{ __typename?: 'Municipal', id: string, name: string, type?: MunicipalType | null }>, paginatorInfo: { __typename?: 'PaginatorInfo', currentPage: number, perPage: number, total: number } } };
+
+export type MunicipalCreateMutationVariables = Exact<{
+  input: MunicipalUpdateInput;
+}>;
+
+
+export type MunicipalCreateMutation = { __typename?: 'Mutation', municipalCreate?: { __typename?: 'Municipal', id: string } | null };
+
+export type MunicipalUpdateMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+  input: MunicipalUpdateInput;
+}>;
+
+
+export type MunicipalUpdateMutation = { __typename?: 'Mutation', municipalUpdate?: { __typename?: 'Municipal', id: string } | null };
+
+export type MunicipalDeleteMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type MunicipalDeleteMutation = { __typename?: 'Mutation', municipalDelete?: { __typename?: 'Municipal', id: string } | null };
+
 export type AttachmentDeleteMutationVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
@@ -1935,7 +995,7 @@ export type ProfilesQueryVariables = Exact<{
 }>;
 
 
-export type ProfilesQuery = { __typename?: 'Query', profiles: { __typename?: 'ProfilePaginator', data: Array<{ __typename?: 'Profile', id: string, user_id: string, group_id?: string | null, user: { __typename?: 'User', first_name?: string | null, last_name?: string | null, email?: string | null, phone?: string | null }, group?: { __typename?: 'Group', name?: string | null } | null }>, paginatorInfo: { __typename?: 'PaginatorInfo', perPage: number, total: number, currentPage: number } } };
+export type ProfilesQuery = { __typename?: 'Query', profiles: { __typename?: 'ProfilePaginator', data: Array<{ __typename?: 'Profile', id: string, user_id: string, user: { __typename?: 'User', first_name?: string | null, last_name?: string | null, email?: string | null, phone?: string | null } }>, paginatorInfo: { __typename?: 'PaginatorInfo', perPage: number, total: number, currentPage: number } } };
 
 export type ProfileUpdateMutationVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -2199,6 +1259,168 @@ export function useCityDeleteMutation(options: VueApolloComposable.UseMutationOp
   return VueApolloComposable.useMutation<CityDeleteMutation, CityDeleteMutationVariables>(CityDeleteDocument, options);
 }
 export type CityDeleteMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<CityDeleteMutation, CityDeleteMutationVariables>;
+export const MunicipalDocument = gql`
+    query municipal($id: ID!) {
+  municipal(id: $id) {
+    id
+    name
+    type
+  }
+}
+    `;
+
+/**
+ * __useMunicipalQuery__
+ *
+ * To run a query within a Vue component, call `useMunicipalQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMunicipalQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param variables that will be passed into the query
+ * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
+ *
+ * @example
+ * const { result, loading, error } = useMunicipalQuery({
+ *   id: // value for 'id'
+ * });
+ */
+export function useMunicipalQuery(variables: MunicipalQueryVariables | VueCompositionApi.Ref<MunicipalQueryVariables> | ReactiveFunction<MunicipalQueryVariables>, options: VueApolloComposable.UseQueryOptions<MunicipalQuery, MunicipalQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<MunicipalQuery, MunicipalQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<MunicipalQuery, MunicipalQueryVariables>> = {}) {
+  return VueApolloComposable.useQuery<MunicipalQuery, MunicipalQueryVariables>(MunicipalDocument, variables, options);
+}
+export function useMunicipalLazyQuery(variables?: MunicipalQueryVariables | VueCompositionApi.Ref<MunicipalQueryVariables> | ReactiveFunction<MunicipalQueryVariables>, options: VueApolloComposable.UseQueryOptions<MunicipalQuery, MunicipalQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<MunicipalQuery, MunicipalQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<MunicipalQuery, MunicipalQueryVariables>> = {}) {
+  return VueApolloComposable.useLazyQuery<MunicipalQuery, MunicipalQueryVariables>(MunicipalDocument, variables, options);
+}
+export type MunicipalQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<MunicipalQuery, MunicipalQueryVariables>;
+export const MunicipalsDocument = gql`
+    query municipals($first: Int!, $page: Int!, $filter: MunicipalFilter, $orderBy: [QueryMunicipalsOrderByOrderByClause!]) {
+  municipals(first: $first, page: $page, filter: $filter, orderBy: $orderBy) {
+    data {
+      id
+      name
+      type
+    }
+    paginatorInfo {
+      currentPage
+      perPage
+      total
+    }
+  }
+}
+    `;
+
+/**
+ * __useMunicipalsQuery__
+ *
+ * To run a query within a Vue component, call `useMunicipalsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMunicipalsQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param variables that will be passed into the query
+ * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
+ *
+ * @example
+ * const { result, loading, error } = useMunicipalsQuery({
+ *   first: // value for 'first'
+ *   page: // value for 'page'
+ *   filter: // value for 'filter'
+ *   orderBy: // value for 'orderBy'
+ * });
+ */
+export function useMunicipalsQuery(variables: MunicipalsQueryVariables | VueCompositionApi.Ref<MunicipalsQueryVariables> | ReactiveFunction<MunicipalsQueryVariables>, options: VueApolloComposable.UseQueryOptions<MunicipalsQuery, MunicipalsQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<MunicipalsQuery, MunicipalsQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<MunicipalsQuery, MunicipalsQueryVariables>> = {}) {
+  return VueApolloComposable.useQuery<MunicipalsQuery, MunicipalsQueryVariables>(MunicipalsDocument, variables, options);
+}
+export function useMunicipalsLazyQuery(variables?: MunicipalsQueryVariables | VueCompositionApi.Ref<MunicipalsQueryVariables> | ReactiveFunction<MunicipalsQueryVariables>, options: VueApolloComposable.UseQueryOptions<MunicipalsQuery, MunicipalsQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<MunicipalsQuery, MunicipalsQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<MunicipalsQuery, MunicipalsQueryVariables>> = {}) {
+  return VueApolloComposable.useLazyQuery<MunicipalsQuery, MunicipalsQueryVariables>(MunicipalsDocument, variables, options);
+}
+export type MunicipalsQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<MunicipalsQuery, MunicipalsQueryVariables>;
+export const MunicipalCreateDocument = gql`
+    mutation municipalCreate($input: MunicipalUpdateInput!) {
+  municipalCreate(input: $input) {
+    id
+  }
+}
+    `;
+
+/**
+ * __useMunicipalCreateMutation__
+ *
+ * To run a mutation, you first call `useMunicipalCreateMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useMunicipalCreateMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useMunicipalCreateMutation({
+ *   variables: {
+ *     input: // value for 'input'
+ *   },
+ * });
+ */
+export function useMunicipalCreateMutation(options: VueApolloComposable.UseMutationOptions<MunicipalCreateMutation, MunicipalCreateMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<MunicipalCreateMutation, MunicipalCreateMutationVariables>> = {}) {
+  return VueApolloComposable.useMutation<MunicipalCreateMutation, MunicipalCreateMutationVariables>(MunicipalCreateDocument, options);
+}
+export type MunicipalCreateMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<MunicipalCreateMutation, MunicipalCreateMutationVariables>;
+export const MunicipalUpdateDocument = gql`
+    mutation municipalUpdate($id: ID!, $input: MunicipalUpdateInput!) {
+  municipalUpdate(id: $id, input: $input) {
+    id
+  }
+}
+    `;
+
+/**
+ * __useMunicipalUpdateMutation__
+ *
+ * To run a mutation, you first call `useMunicipalUpdateMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useMunicipalUpdateMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useMunicipalUpdateMutation({
+ *   variables: {
+ *     id: // value for 'id'
+ *     input: // value for 'input'
+ *   },
+ * });
+ */
+export function useMunicipalUpdateMutation(options: VueApolloComposable.UseMutationOptions<MunicipalUpdateMutation, MunicipalUpdateMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<MunicipalUpdateMutation, MunicipalUpdateMutationVariables>> = {}) {
+  return VueApolloComposable.useMutation<MunicipalUpdateMutation, MunicipalUpdateMutationVariables>(MunicipalUpdateDocument, options);
+}
+export type MunicipalUpdateMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<MunicipalUpdateMutation, MunicipalUpdateMutationVariables>;
+export const MunicipalDeleteDocument = gql`
+    mutation municipalDelete($id: ID!) {
+  municipalDelete(id: $id) {
+    id
+  }
+}
+    `;
+
+/**
+ * __useMunicipalDeleteMutation__
+ *
+ * To run a mutation, you first call `useMunicipalDeleteMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useMunicipalDeleteMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useMunicipalDeleteMutation({
+ *   variables: {
+ *     id: // value for 'id'
+ *   },
+ * });
+ */
+export function useMunicipalDeleteMutation(options: VueApolloComposable.UseMutationOptions<MunicipalDeleteMutation, MunicipalDeleteMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<MunicipalDeleteMutation, MunicipalDeleteMutationVariables>> = {}) {
+  return VueApolloComposable.useMutation<MunicipalDeleteMutation, MunicipalDeleteMutationVariables>(MunicipalDeleteDocument, options);
+}
+export type MunicipalDeleteMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<MunicipalDeleteMutation, MunicipalDeleteMutationVariables>;
 export const AttachmentDeleteDocument = gql`
     mutation attachmentDelete($id: ID!) {
   attachmentDelete(id: $id) {
@@ -2755,10 +1977,6 @@ export const ProfilesDocument = gql`
         last_name
         email
         phone
-      }
-      group_id
-      group {
-        name
       }
     }
     paginatorInfo {

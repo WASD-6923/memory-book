@@ -16,6 +16,12 @@ const adminMenus: IMenuItem[] = [
     label: 'sideMenu.systemMenu',
     items: [
       {
+        label: 'sideMenu.municipals',
+        icon: 'pi pi-fw pi-building',
+        to: '/admin/municipals',
+        permission: 'menuAdminMunicipals',
+      },
+      {
         label: 'sideMenu.users',
         icon: 'pi pi-fw pi-users',
         to: '/admin/users',

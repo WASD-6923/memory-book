@@ -2,7 +2,7 @@ import type { CodegenConfig } from '@graphql-codegen/cli'
 
 const config: CodegenConfig = {
   overwrite: true,
-  schema: 'http://aa-oren.test/graphql',
+  schema: 'http://memory-book.test/graphql',
   documents: 'src/graphql/*/*.graphql',
   generates: {
     'src/generated/graphqlOperations.ts': {

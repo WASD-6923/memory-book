@@ -1,0 +1,43 @@
+type Municipal {
+    id: ID!
+    name: String!
+    type: MunicipalType
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+
+enum MunicipalColumns {
+    ID @enum(value: "id")
+    TYPE @enum(value: "type")
+    NAME @enum(value: "name")
+}
+
+input MunicipalFilter {
+    search: String @ilike(key: "name", template: "%{}%")
+    type: String @where(key: "type")
+}
+
+input MunicipalUpdateInput {
+    name: String @rules(apply: ["required", "string", "max:255"])
+    type: MunicipalType @rules(apply: ["required"])
+}
+
+extend type Query @guard
+{
+    municipal(id: ID! @eq): Municipal @find
+
+    municipals(
+        first: Int!
+        page: Int!
+        filter: MunicipalFilter
+        orderBy: _ @orderBy(columnsEnum: "MunicipalColumns")
+    ): [Municipal!]! @paginate(defaultCount: 10) @orderBy(column: "name", direction: ASC)
+}
+
+extend type Mutation @guard
+{
+    municipalCreate(input: MunicipalUpdateInput! @spread ): Municipal @create
+    municipalUpdate(id: ID!, input: MunicipalUpdateInput! @spread): Municipal @update
+    municipalDelete(id: ID! @eq): Municipal @delete
+}
