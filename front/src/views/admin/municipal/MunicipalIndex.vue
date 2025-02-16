@@ -34,7 +34,7 @@ const variables = reactive<MunicipalsQueryVariables>({
   orderBy: [
     {
       column: MunicipalColumns.Name,
-      order: SortOrder.Desc,
+      order: SortOrder.Asc,
     },
   ],
   filter: {
@@ -108,6 +108,8 @@ onUnmounted(() => {
         <Column
           field="name"
           header="Название"
+          sortable
+          sort-field="NAME"
         >
           <template #body="slotProps">
             <RouterLink :to="`/admin/municipals/update/${slotProps.data.id}`">
@@ -117,7 +119,7 @@ onUnmounted(() => {
             </RouterLink>
           </template>
         </Column>
-        <Column header="Тип">
+        <Column header="Тип" sortable sort-field="TYPE">
           <template #body="slotProps">
             {{ slotProps.data.type === MunicipalType.CityDistrict ? 'Городской округ' : 'Муниципальный район' }}
           </template>
