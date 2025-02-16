@@ -1077,7 +1077,7 @@ export type PeopleQueryVariables = Exact<{
 }>;
 
 
-export type PeopleQuery = { __typename?: 'Query', people?: { __typename?: 'People', municipal_id?: string | null, first_name: string, last_name: string, middle_name?: string | null, birth_date?: any | null, date_of_death?: any | null, birth_place?: string | null, gender?: PeopleGender | null, name_of_military_commissariat?: string | null, military_rank?: string | null, awards?: string | null, place_of_burial?: string | null, biography?: string | null, additional?: string | null, status?: PeopleStatus | null, created_at: any, updated_at: any, created_by: string, updated_by: string, municipal: { __typename?: 'Municipal', id: string, name: string, type?: MunicipalType | null }, author: { __typename?: 'User', id: string, name?: string | null }, updater: { __typename?: 'User', id: string, name?: string | null } } | null };
+export type PeopleQuery = { __typename?: 'Query', people?: { __typename?: 'People', municipal_id?: string | null, first_name: string, last_name: string, middle_name?: string | null, birth_date?: any | null, date_of_death?: any | null, birth_place?: string | null, gender?: PeopleGender | null, name_of_military_commissariat?: string | null, military_rank?: string | null, awards?: string | null, place_of_burial?: string | null, biography?: string | null, additional?: string | null, status?: PeopleStatus | null, created_at: any, updated_at: any, created_by: string, updated_by: string, municipal: { __typename?: 'Municipal', id: string, name: string, type?: MunicipalType | null } } | null };
 
 export type PeoplesQueryVariables = Exact<{
   first: Scalars['Int']['input'];
@@ -1087,7 +1087,7 @@ export type PeoplesQueryVariables = Exact<{
 }>;
 
 
-export type PeoplesQuery = { __typename?: 'Query', peoples: { __typename?: 'PeoplePaginator', data: Array<{ __typename?: 'People', municipal_id?: string | null, first_name: string, last_name: string, middle_name?: string | null, birth_date?: any | null, date_of_death?: any | null, status?: PeopleStatus | null, created_at: any, updated_at: any, municipal: { __typename?: 'Municipal', id: string, name: string, type?: MunicipalType | null }, author: { __typename?: 'User', id: string, name?: string | null }, updater: { __typename?: 'User', id: string, name?: string | null } }>, paginatorInfo: { __typename?: 'PaginatorInfo', currentPage: number, perPage: number, total: number } } };
+export type PeoplesQuery = { __typename?: 'Query', peoples: { __typename?: 'PeoplePaginator', data: Array<{ __typename?: 'People', id: string, municipal_id?: string | null, first_name: string, last_name: string, middle_name?: string | null, birth_date?: any | null, date_of_death?: any | null, status?: PeopleStatus | null, created_at: any, updated_at: any, municipal: { __typename?: 'Municipal', id: string, name: string, type?: MunicipalType | null } }>, paginatorInfo: { __typename?: 'PaginatorInfo', currentPage: number, perPage: number, total: number } } };
 
 export type PeopleCreateMutationVariables = Exact<{
   input: PeopleUpdateInput;
@@ -1972,14 +1972,6 @@ export const PeopleDocument = gql`
       name
       type
     }
-    author {
-      id
-      name
-    }
-    updater {
-      id
-      name
-    }
   }
 }
     `;
@@ -2010,6 +2002,7 @@ export const PeoplesDocument = gql`
     query peoples($first: Int!, $page: Int!, $filter: PeopleFilter, $orderBy: [QueryPeoplesOrderByOrderByClause!]) {
   peoples(first: $first, page: $page, filter: $filter, orderBy: $orderBy) {
     data {
+      id
       municipal_id
       first_name
       last_name
@@ -2023,14 +2016,6 @@ export const PeoplesDocument = gql`
         id
         name
         type
-      }
-      author {
-        id
-        name
-      }
-      updater {
-        id
-        name
       }
     }
     paginatorInfo {

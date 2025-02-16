@@ -38,7 +38,7 @@ enum PeopleColumns {
 }
 
 input PeopleFilter {
-    search: String @ilike(key: "name", template: "%{}%")
+    search: String @trim @scope(name: "search")
     municipal_id: String @where(key: "municipal_id")
 }
 
@@ -69,7 +69,7 @@ extend type Query @guard
         page: Int!
         filter: PeopleFilter
         orderBy: _ @orderBy(columnsEnum: "PeopleColumns")
-    ): [People!]! @paginate(defaultCount: 10) @orderBy(column: "name", direction: ASC)
+    ): [People!]! @paginate(defaultCount: 10) @orderBy(column: "last_name", direction: ASC)
 }
 
 extend type Mutation @guard

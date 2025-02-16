@@ -25,20 +25,13 @@ query people($id: ID!) {
       name
       type
     }
-    author {
-      id
-      name
-    }
-    updater {
-      id
-      name
-    }
   }
 }
 
 query peoples($first: Int!, $page: Int!, $filter: PeopleFilter, $orderBy: [QueryPeoplesOrderByOrderByClause!]) {
   peoples(first: $first, page: $page, filter: $filter, orderBy: $orderBy) {
     data {
+      id
       municipal_id
       first_name
       last_name
@@ -52,14 +45,6 @@ query peoples($first: Int!, $page: Int!, $filter: PeopleFilter, $orderBy: [Query
         id
         name
         type
-      }
-      author {
-        id
-        name
-      }
-      updater {
-        id
-        name
       }
     }
     paginatorInfo {

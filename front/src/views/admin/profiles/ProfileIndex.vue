@@ -122,16 +122,6 @@ onUnmounted(() => {
           </template>
         </Column>
         <Column
-          field="group.name"
-          header="Домашняя группа"
-          sort-field="GROUP_ID"
-          sortable
-        >
-          <template #body="slotProps">
-            {{ slotProps.data.group?.name }}
-          </template>
-        </Column>
-        <Column
           :header="t('common.operations')"
           style="width: 10rem"
         >

@@ -3,7 +3,6 @@ import { useTitle } from '@vueuse/core'
 import { onUnmounted, reactive, ref } from 'vue'
 import { DataTablePageEvent, DataTableSortEvent } from 'primevue/datatable'
 import {
-  MunicipalColumns,
   MunicipalType,
   PeopleColumns,
   PeoplesQueryVariables,
@@ -14,8 +13,8 @@ import {
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 import { useErrorsStore } from '@/stores/useErrors.ts'
-import MunicipalFilterPanel from '@/views/admin/municipal/partials/MunicipalFilterPanel.vue'
-import PeopleFilterPanel from "@/views/admin/peoples/partials/PeopleFilterPanel.vue";
+import PeopleFilterPanel from '@/views/admin/peoples/partials/PeopleFilterPanel.vue'
+import {useFormatDate} from "../../../composables/useFormatDate.js";
 
 const errStore = useErrorsStore()
 errStore.clearStore()
@@ -51,7 +50,7 @@ const onPage = (event: DataTablePageEvent) => {
 const onHandleSort = (event: DataTableSortEvent) => {
   variables.orderBy = [
     {
-      column: event.sortField as MunicipalColumns,
+      column: event.sortField as PeopleColumns,
       order: event.sortOrder == 1 ? SortOrder.Asc : SortOrder.Desc,
     },
   ]
@@ -109,19 +108,29 @@ onUnmounted(() => {
       >
         <Column
           field="name"
-          header="Название"
+          header="ФИО"
         >
           <template #body="slotProps">
-            <RouterLink :to="`/admin/municipals/view/${slotProps.data.user_id}`">
+            <RouterLink :to="`/admin/peoples/update/${slotProps.data.id}`">
               <div class="text-primary">
-                {{ slotProps.data.name }}
+                {{ slotProps.data.last_name }} {{ slotProps.data.first_name }} {{ slotProps.data.middle_name }}
               </div>
             </RouterLink>
           </template>
         </Column>
-        <Column header="Тип">
+        <Column header="МО">
           <template #body="slotProps">
-            {{ slotProps.data.type === MunicipalType.CityDistrict ? 'Городской округ' : 'Муниципальный район' }}
+            {{ slotProps.data.municipal.name }}
+          </template>
+        </Column>
+        <Column header="Дата рождения">
+          <template #body="slotProps">
+            {{ slotProps.data.birth_date ? useFormatDate(slotProps.data.birth_date) : '' }}
+          </template>
+        </Column>
+        <Column header="Дата гибели(смерти)">
+          <template #body="slotProps">
+            {{ slotProps.data.date_of_death ? useFormatDate(slotProps.data.date_of_death) : '' }}
           </template>
         </Column>
         <Column
@@ -135,7 +144,7 @@ onUnmounted(() => {
               rounded
               severity="success"
               as="router-link"
-              :to="`municipals/update/${slotProps.data.id}`"
+              :to="`peoples/update/${slotProps.data.id}`"
             />
             <Button
               icon="pi pi-trash"
