@@ -110,7 +110,7 @@ onUnmounted(() => {
           header="Название"
         >
           <template #body="slotProps">
-            <RouterLink :to="`/admin/municipals/view/${slotProps.data.user_id}`">
+            <RouterLink :to="`/admin/municipals/update/${slotProps.data.id}`">
               <div class="text-primary">
                 {{ slotProps.data.name }}
               </div>

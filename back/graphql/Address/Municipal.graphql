@@ -15,7 +15,7 @@ enum MunicipalColumns {
 
 input MunicipalFilter {
     search: String @ilike(key: "name", template: "%{}%")
-    type: String @where(key: "type")
+    type: MunicipalType @where(key: "type")
 }
 
 input MunicipalUpdateInput {
