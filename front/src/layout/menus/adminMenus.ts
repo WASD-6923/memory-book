@@ -34,6 +34,12 @@ const adminMenus: IMenuItem[] = [
         permission: 'menuAdminWars',
       },
       {
+        label: 'sideMenu.audits',
+        icon: 'pi pi-fw pi-search',
+        to: '/admin/audits',
+        permission: 'menuAdminAudits',
+      },
+      {
         label: 'sideMenu.users',
         icon: 'pi pi-fw pi-users',
         to: '/admin/users',

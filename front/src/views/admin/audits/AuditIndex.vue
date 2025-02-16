@@ -3,23 +3,23 @@ import { useTitle } from '@vueuse/core'
 import { onUnmounted, reactive, ref } from 'vue'
 import { DataTablePageEvent, DataTableSortEvent } from 'primevue/datatable'
 import {
-  PeopleColumns,
-  PeoplesQueryVariables,
+  AuditColumns,
+  AuditsQueryVariables,
   SortOrder,
-  usePeoplesQuery,
+  useAuditsQuery,
   UserFilter,
 } from '@/generated/graphqlOperations.js'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 import { useErrorsStore } from '@/stores/useErrors.ts'
-import PeopleFilterPanel from '@/views/admin/peoples/partials/PeopleFilterPanel.vue'
 import { useFormatDate } from '@/composables/useFormatDate.js'
+import dayjs from "dayjs";
 
 const errStore = useErrorsStore()
 errStore.clearStore()
 const route = useRoute()
 const { t } = useI18n()
-useTitle('Жители')
+useTitle('Логирование действий пользователей')
 const dt = ref()
 const profiles = ref()
 const paginator = ref({
@@ -28,12 +28,12 @@ const paginator = ref({
   perPage: 10,
 })
 
-const variables = reactive<PeoplesQueryVariables>({
+const variables = reactive<AuditsQueryVariables>({
   first: paginator.value.perPage,
   page: 1,
   orderBy: [
     {
-      column: PeopleColumns.LastName,
+      column: AuditColumns.Id,
       order: SortOrder.Desc,
     },
   ],
@@ -49,20 +49,20 @@ const onPage = (event: DataTablePageEvent) => {
 const onHandleSort = (event: DataTableSortEvent) => {
   variables.orderBy = [
     {
-      column: event.sortField as PeopleColumns,
+      column: event.sortField as AuditColumns,
       order: event.sortOrder == 1 ? SortOrder.Asc : SortOrder.Desc,
     },
   ]
 }
 
-const { onResult, loading, refetch } = usePeoplesQuery(variables, {
+const { onResult, loading, refetch } = useAuditsQuery(variables, {
   fetchPolicy: 'no-cache',
 })
 
 onResult((queryResult) => {
   if (queryResult.data) {
-    profiles.value = queryResult.data?.peoples.data
-    paginator.value = { ...queryResult.data.peoples.paginatorInfo }
+    profiles.value = queryResult.data?.audits.data
+    paginator.value = { ...queryResult.data.audits.paginatorInfo }
     variables.page = paginator.value.currentPage
   }
 })
@@ -79,18 +79,11 @@ onUnmounted(() => {
   <Card>
     <template #title>
       <div class="flex flex-row justify-between">
-        <div>Жители</div>
-        <Button
-          icon="pi pi-user-plus"
-          :label="t('common.add')"
-          size="small"
-          as="router-link"
-          to="/admin/peoples/create"
-        />
+        <div>Логирование действий пользователей</div>
       </div>
     </template>
     <template #content>
-      <PeopleFilterPanel @apply-filter="handleApplyFilter" />
+      <!--      <PeopleFilterPanel @apply-filter="handleApplyFilter" />-->
       <DataTable
         ref="dt"
         :loading="loading"
@@ -105,36 +98,29 @@ onUnmounted(() => {
         :rowsPerPageOptions="[10, 20, 50, 100]"
         stripedRows
       >
-        <Column
-          field="name"
-          header="ФИО"
-        >
+        <Column header="Воин">
           <template #body="slotProps">
-            <RouterLink :to="`/admin/peoples/view/${slotProps.data.id}`">
+            <RouterLink :to="`/admin/audits/view/${slotProps.data.id}`">
               <div class="text-primary">
-                {{ slotProps.data.last_name }} {{ slotProps.data.first_name }} {{ slotProps.data.middle_name }}
+                {{ slotProps.data.auditable.last_name }} {{ slotProps.data.auditable.first_name }}
+                {{ slotProps.data.auditable.middle_name }}
               </div>
             </RouterLink>
           </template>
         </Column>
-        <Column header="МО">
+        <Column header="Дата">
           <template #body="slotProps">
-            {{ slotProps.data.municipal.name }}
+            {{ dayjs(slotProps.data.created_at).format('DD.MM.YYYY HH:mm') }}
           </template>
         </Column>
-        <Column header="Дата рождения">
+        <Column header="Модератор">
           <template #body="slotProps">
-            {{ slotProps.data.birth_date ? useFormatDate(slotProps.data.birth_date) : '' }}
-          </template>
-        </Column>
-        <Column header="Дата гибели(смерти)">
-          <template #body="slotProps">
-            {{ slotProps.data.date_of_death ? useFormatDate(slotProps.data.date_of_death) : '' }}
+            {{ slotProps.data.user.fullName }}
           </template>
         </Column>
         <Column
           :header="t('common.operations')"
-          style="width: 14rem"
+          style="width: 4rem"
         >
           <template #body="slotProps">
             <Button
@@ -143,23 +129,7 @@ onUnmounted(() => {
               rounded
               severity="info"
               as="router-link"
-              :to="`peoples/view/${slotProps.data.id}`"
-            />
-            <Button
-              icon="pi pi-user-edit"
-              raised
-              rounded
-              class="ml-2"
-              severity="success"
-              as="router-link"
-              :to="`peoples/update/${slotProps.data.id}`"
-            />
-            <Button
-              icon="pi pi-trash"
-              raised
-              rounded
-              severity="danger"
-              class="ml-2"
+              :to="`audits/view/${slotProps.data.id}`"
             />
           </template>
         </Column>

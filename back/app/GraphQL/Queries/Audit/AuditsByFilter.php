@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Queries\Audit;
 
-use App\Models\Share\AuditModel;
+use App\Models\Share\Audit;
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
@@ -15,7 +15,7 @@ final readonly class AuditsByFilter
         GraphQLContext $context,
         ResolveInfo $resolveInfo
     ): LengthAwarePaginator {
-        return AuditModel::query()->filter($args['filter'])->sort($args)->paginate(
+        return Audit::query()->filter($args['filter'])->sort($args)->paginate(
             perPage: $args['first'],
             page: $args['page']
         );

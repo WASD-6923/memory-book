@@ -123,7 +123,24 @@ const router = createRouter({
             admin: true,
           },
         },
-
+        {
+          path: 'audits',
+          name: 'adminAudits',
+          component: () => import('@/views/admin/audits/AuditIndex.vue'),
+          meta: {
+            auth: true,
+            admin: true,
+          },
+        },
+        {
+          path: 'audits/view/:id',
+          name: 'adminAuditUpdate',
+          component: () => import('@/views/admin/audits/AuditView.vue'),
+          meta: {
+            auth: true,
+            admin: true,
+          },
+        },
         {
           path: 'wars',
           name: 'adminWars',

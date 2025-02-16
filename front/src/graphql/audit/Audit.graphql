@@ -1,0 +1,75 @@
+query audit($id: ID!) {
+  audit(id: $id) {
+    id
+    user_type
+    user_id
+    event
+    auditable_type
+    auditable_id
+    old_values
+    new_values
+    url
+    ip_address
+    user_agent
+    created_at
+    auditable {
+      ... on People {
+        municipal_id
+        first_name
+        last_name
+        middle_name
+        birth_date
+        date_of_death
+        lat
+        lon
+        birth_place
+        gender
+        name_of_military_commissariat
+        military_rank
+        awards
+        place_of_burial
+        biography
+        additional
+        status
+      }
+    }
+    user {
+      id
+      fullName
+    }
+  }
+}
+
+query audits($first: Int!, $page: Int!, $filter: AuditFilter, $orderBy: [QueryAuditsOrderByOrderByClause!]) {
+  audits(first: $first, page: $page, filter: $filter, orderBy: $orderBy) {
+    data {
+      id
+      user_type
+      user_id
+      event
+      auditable_type
+      auditable_id
+      url
+      ip_address
+      user_agent
+      user {
+        id
+        fullName
+      }
+      auditable {
+        ... on People {
+          first_name
+          last_name
+          middle_name
+        }
+      }
+      created_at
+    }
+    paginatorInfo {
+      currentPage
+      perPage
+      total
+    }
+  }
+}
+

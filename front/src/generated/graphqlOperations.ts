@@ -48,6 +48,54 @@ export type Attachment = {
   url: Scalars['String']['output'];
 };
 
+export type Audit = {
+  __typename?: 'Audit';
+  auditable: Auditable;
+  auditable_id?: Maybe<Scalars['String']['output']>;
+  auditable_name: Scalars['String']['output'];
+  auditable_type?: Maybe<Scalars['String']['output']>;
+  created_at?: Maybe<Scalars['DateTime']['output']>;
+  event?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  ip_address?: Maybe<Scalars['String']['output']>;
+  new_values?: Maybe<Scalars['JSON']['output']>;
+  old_values?: Maybe<Scalars['JSON']['output']>;
+  updated_at?: Maybe<Scalars['DateTime']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
+  user: User;
+  userName?: Maybe<Scalars['String']['output']>;
+  user_agent?: Maybe<Scalars['String']['output']>;
+  user_id?: Maybe<Scalars['String']['output']>;
+  user_type?: Maybe<Scalars['String']['output']>;
+};
+
+export enum AuditColumns {
+  Event = 'EVENT',
+  Id = 'ID'
+}
+
+export type AuditFilter = {
+  auditableNames?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  auditableNumber?: InputMaybe<Scalars['Int']['input']>;
+  auditable_id?: InputMaybe<Scalars['String']['input']>;
+  events?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  newValues?: InputMaybe<Scalars['String']['input']>;
+  oldValues?: InputMaybe<Scalars['String']['input']>;
+  userIds?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+/** A paginated list of Audit items. */
+export type AuditPaginator = {
+  __typename?: 'AuditPaginator';
+  /** A list of Audit items. */
+  data: Array<Audit>;
+  /** Pagination information about the list of items. */
+  paginatorInfo: PaginatorInfo;
+};
+
+export type Auditable = People;
+
 export type Auth = {
   __typename?: 'Auth';
   accessToken?: Maybe<Scalars['String']['output']>;
@@ -597,6 +645,9 @@ export type ProfileUpdateInput = {
 export type Query = {
   __typename?: 'Query';
   adminStatistics?: Maybe<AdminStatistics>;
+  audit?: Maybe<Audit>;
+  audits: AuditPaginator;
+  auditsByFilter: AuditPaginator;
   cities: CityPaginator;
   city?: Maybe<City>;
   login?: Maybe<Auth>;
@@ -619,6 +670,30 @@ export type Query = {
   users: UserPaginator;
   war?: Maybe<War>;
   wars: WarPaginator;
+};
+
+
+/** Indicates what fields are available at the top level of a query operation. */
+export type QueryAuditArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+/** Indicates what fields are available at the top level of a query operation. */
+export type QueryAuditsArgs = {
+  filter?: InputMaybe<AuditFilter>;
+  first?: Scalars['Int']['input'];
+  orderBy?: InputMaybe<Array<QueryAuditsOrderByOrderByClause>>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+/** Indicates what fields are available at the top level of a query operation. */
+export type QueryAuditsByFilterArgs = {
+  filter?: InputMaybe<AuditFilter>;
+  first: Scalars['Int']['input'];
+  orderBy?: InputMaybe<Array<QueryAuditsByFilterOrderByOrderByClause>>;
+  page?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -756,6 +831,22 @@ export type QueryWarsArgs = {
   first?: Scalars['Int']['input'];
   orderBy?: InputMaybe<Array<QueryWarsOrderByOrderByClause>>;
   page?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** Order by clause for Query.auditsByFilter.orderBy. */
+export type QueryAuditsByFilterOrderByOrderByClause = {
+  /** The column that is used for ordering. */
+  column: AuditColumns;
+  /** The direction that is used for ordering. */
+  order: SortOrder;
+};
+
+/** Order by clause for Query.audits.orderBy. */
+export type QueryAuditsOrderByOrderByClause = {
+  /** The column that is used for ordering. */
+  column: AuditColumns;
+  /** The direction that is used for ordering. */
+  order: SortOrder;
 };
 
 /** Order by clause for Query.cities.orderBy. */
@@ -1109,6 +1200,23 @@ export type AttachmentDeleteMutationVariables = Exact<{
 
 
 export type AttachmentDeleteMutation = { __typename?: 'Mutation', attachmentDelete?: { __typename?: 'Attachment', id: string } | null };
+
+export type AuditQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type AuditQuery = { __typename?: 'Query', audit?: { __typename?: 'Audit', id: string, user_type?: string | null, user_id?: string | null, event?: string | null, auditable_type?: string | null, auditable_id?: string | null, old_values?: any | null, new_values?: any | null, url?: string | null, ip_address?: string | null, user_agent?: string | null, created_at?: any | null, auditable: { __typename?: 'People', municipal_id?: string | null, first_name: string, last_name: string, middle_name?: string | null, birth_date?: any | null, date_of_death?: any | null, lat?: number | null, lon?: number | null, birth_place?: string | null, gender?: PeopleGender | null, name_of_military_commissariat?: string | null, military_rank?: string | null, awards?: string | null, place_of_burial?: string | null, biography?: string | null, additional?: string | null, status?: PeopleStatus | null }, user: { __typename?: 'User', id: string, fullName?: string | null } } | null };
+
+export type AuditsQueryVariables = Exact<{
+  first: Scalars['Int']['input'];
+  page: Scalars['Int']['input'];
+  filter?: InputMaybe<AuditFilter>;
+  orderBy?: InputMaybe<Array<QueryAuditsOrderByOrderByClause> | QueryAuditsOrderByOrderByClause>;
+}>;
+
+
+export type AuditsQuery = { __typename?: 'Query', audits: { __typename?: 'AuditPaginator', data: Array<{ __typename?: 'Audit', id: string, user_type?: string | null, user_id?: string | null, event?: string | null, auditable_type?: string | null, auditable_id?: string | null, url?: string | null, ip_address?: string | null, user_agent?: string | null, created_at?: any | null, user: { __typename?: 'User', id: string, fullName?: string | null }, auditable: { __typename?: 'People', first_name: string, last_name: string, middle_name?: string | null } }>, paginatorInfo: { __typename?: 'PaginatorInfo', currentPage: number, perPage: number, total: number } } };
 
 export type LoginQueryVariables = Exact<{
   input: LoginInput;
@@ -1755,6 +1863,132 @@ export function useAttachmentDeleteMutation(options: VueApolloComposable.UseMuta
   return VueApolloComposable.useMutation<AttachmentDeleteMutation, AttachmentDeleteMutationVariables>(AttachmentDeleteDocument, options);
 }
 export type AttachmentDeleteMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<AttachmentDeleteMutation, AttachmentDeleteMutationVariables>;
+export const AuditDocument = gql`
+    query audit($id: ID!) {
+  audit(id: $id) {
+    id
+    user_type
+    user_id
+    event
+    auditable_type
+    auditable_id
+    old_values
+    new_values
+    url
+    ip_address
+    user_agent
+    created_at
+    auditable {
+      ... on People {
+        municipal_id
+        first_name
+        last_name
+        middle_name
+        birth_date
+        date_of_death
+        lat
+        lon
+        birth_place
+        gender
+        name_of_military_commissariat
+        military_rank
+        awards
+        place_of_burial
+        biography
+        additional
+        status
+      }
+    }
+    user {
+      id
+      fullName
+    }
+  }
+}
+    `;
+
+/**
+ * __useAuditQuery__
+ *
+ * To run a query within a Vue component, call `useAuditQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAuditQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param variables that will be passed into the query
+ * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
+ *
+ * @example
+ * const { result, loading, error } = useAuditQuery({
+ *   id: // value for 'id'
+ * });
+ */
+export function useAuditQuery(variables: AuditQueryVariables | VueCompositionApi.Ref<AuditQueryVariables> | ReactiveFunction<AuditQueryVariables>, options: VueApolloComposable.UseQueryOptions<AuditQuery, AuditQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<AuditQuery, AuditQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<AuditQuery, AuditQueryVariables>> = {}) {
+  return VueApolloComposable.useQuery<AuditQuery, AuditQueryVariables>(AuditDocument, variables, options);
+}
+export function useAuditLazyQuery(variables?: AuditQueryVariables | VueCompositionApi.Ref<AuditQueryVariables> | ReactiveFunction<AuditQueryVariables>, options: VueApolloComposable.UseQueryOptions<AuditQuery, AuditQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<AuditQuery, AuditQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<AuditQuery, AuditQueryVariables>> = {}) {
+  return VueApolloComposable.useLazyQuery<AuditQuery, AuditQueryVariables>(AuditDocument, variables, options);
+}
+export type AuditQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<AuditQuery, AuditQueryVariables>;
+export const AuditsDocument = gql`
+    query audits($first: Int!, $page: Int!, $filter: AuditFilter, $orderBy: [QueryAuditsOrderByOrderByClause!]) {
+  audits(first: $first, page: $page, filter: $filter, orderBy: $orderBy) {
+    data {
+      id
+      user_type
+      user_id
+      event
+      auditable_type
+      auditable_id
+      url
+      ip_address
+      user_agent
+      user {
+        id
+        fullName
+      }
+      auditable {
+        ... on People {
+          first_name
+          last_name
+          middle_name
+        }
+      }
+      created_at
+    }
+    paginatorInfo {
+      currentPage
+      perPage
+      total
+    }
+  }
+}
+    `;
+
+/**
+ * __useAuditsQuery__
+ *
+ * To run a query within a Vue component, call `useAuditsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAuditsQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param variables that will be passed into the query
+ * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
+ *
+ * @example
+ * const { result, loading, error } = useAuditsQuery({
+ *   first: // value for 'first'
+ *   page: // value for 'page'
+ *   filter: // value for 'filter'
+ *   orderBy: // value for 'orderBy'
+ * });
+ */
+export function useAuditsQuery(variables: AuditsQueryVariables | VueCompositionApi.Ref<AuditsQueryVariables> | ReactiveFunction<AuditsQueryVariables>, options: VueApolloComposable.UseQueryOptions<AuditsQuery, AuditsQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<AuditsQuery, AuditsQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<AuditsQuery, AuditsQueryVariables>> = {}) {
+  return VueApolloComposable.useQuery<AuditsQuery, AuditsQueryVariables>(AuditsDocument, variables, options);
+}
+export function useAuditsLazyQuery(variables?: AuditsQueryVariables | VueCompositionApi.Ref<AuditsQueryVariables> | ReactiveFunction<AuditsQueryVariables>, options: VueApolloComposable.UseQueryOptions<AuditsQuery, AuditsQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<AuditsQuery, AuditsQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<AuditsQuery, AuditsQueryVariables>> = {}) {
+  return VueApolloComposable.useLazyQuery<AuditsQuery, AuditsQueryVariables>(AuditsDocument, variables, options);
+}
+export type AuditsQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<AuditsQuery, AuditsQueryVariables>;
 export const LoginDocument = gql`
     query login($input: LoginInput!) {
   login(input: $input) {
