@@ -2,13 +2,19 @@ query profile($id: ID!) {
   profile(id: $id) {
     id
     user_id
+    local_government
+    name
+    municipal_id
     user {
       email
       phone
       first_name
       last_name
+      fullName
     }
-
+    municipal {
+      name
+    }
   }
 }
 
@@ -17,13 +23,19 @@ query profiles($first: Int!, $page: Int!, $filter: ProfileFilter, $orderBy: [Que
     data {
       id
       user_id
+      local_government
+      name
+      municipal_id
       user {
         first_name
         last_name
         email
         phone
+        fullName
       }
-
+      municipal {
+        name
+      }
     }
     paginatorInfo {
       perPage

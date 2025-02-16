@@ -65,11 +65,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function getFullNameAttribute(): string
     {
-        $fn = $this->phone . ', ' . $this->first_name . ' ' . $this->last_name . '.';
-        if ($this->profile?->group?->name) {
-            $fn .=  ', "' . $this->profile->group->name . '"';
-        }
-        return $fn;
+        return $this->phone . ', ' . $this->last_name . ' ' . $this->first_name . ' ' . $this->middle_name;
     }
 
     public function getJWTIdentifier()

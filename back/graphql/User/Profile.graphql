@@ -1,11 +1,14 @@
 type Profile {
     id: ID!
     user_id: String!
-    group_id: String
     created_at: DateTime
     updated_at: DateTime
+    local_government: String
+    name: String
+    municipal_id: String
 
     user: User! @belongsTo
+    municipal: Municipal @belongsTo
 }
 
 enum ProfileColumns {
@@ -23,7 +26,9 @@ input ProfileFilter {
 }
 
 input ProfileUpdateInput {
-    group_id: String @rules(apply: ["required", "exists:groups,id"])
+    local_government: String @rules(apply: ["nullable", "string", "max:255"])
+    name: String @rules(apply: ["nullable", "string", "max:255"])
+    municipal_id: String @rules(apply: ["required", "exists:municipals,id"])
 }
 
 extend type Query @guard

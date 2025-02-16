@@ -139,7 +139,7 @@ export enum MunicipalColumns {
 
 export type MunicipalFilter = {
   search?: InputMaybe<Scalars['String']['input']>;
-  type?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<MunicipalType>;
 };
 
 /** A paginated list of Municipal items. */
@@ -531,8 +531,11 @@ export type PositionInput = {
 export type Profile = {
   __typename?: 'Profile';
   created_at?: Maybe<Scalars['DateTime']['output']>;
-  group_id?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
+  local_government?: Maybe<Scalars['String']['output']>;
+  municipal?: Maybe<Municipal>;
+  municipal_id?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
   updated_at?: Maybe<Scalars['DateTime']['output']>;
   user: User;
   user_id: Scalars['String']['output'];
@@ -562,7 +565,9 @@ export type ProfilePaginator = {
 };
 
 export type ProfileUpdateInput = {
-  group_id?: InputMaybe<Scalars['String']['input']>;
+  local_government?: InputMaybe<Scalars['String']['input']>;
+  municipal_id?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Indicates what fields are available at the top level of a query operation. */
@@ -1150,7 +1155,7 @@ export type ProfileQueryVariables = Exact<{
 }>;
 
 
-export type ProfileQuery = { __typename?: 'Query', profile?: { __typename?: 'Profile', id: string, user_id: string, user: { __typename?: 'User', email?: string | null, phone?: string | null, first_name?: string | null, last_name?: string | null } } | null };
+export type ProfileQuery = { __typename?: 'Query', profile?: { __typename?: 'Profile', id: string, user_id: string, local_government?: string | null, name?: string | null, municipal_id?: string | null, user: { __typename?: 'User', email?: string | null, phone?: string | null, first_name?: string | null, last_name?: string | null, fullName?: string | null }, municipal?: { __typename?: 'Municipal', name: string } | null } | null };
 
 export type ProfilesQueryVariables = Exact<{
   first: Scalars['Int']['input'];
@@ -1160,7 +1165,7 @@ export type ProfilesQueryVariables = Exact<{
 }>;
 
 
-export type ProfilesQuery = { __typename?: 'Query', profiles: { __typename?: 'ProfilePaginator', data: Array<{ __typename?: 'Profile', id: string, user_id: string, user: { __typename?: 'User', first_name?: string | null, last_name?: string | null, email?: string | null, phone?: string | null } }>, paginatorInfo: { __typename?: 'PaginatorInfo', perPage: number, total: number, currentPage: number } } };
+export type ProfilesQuery = { __typename?: 'Query', profiles: { __typename?: 'ProfilePaginator', data: Array<{ __typename?: 'Profile', id: string, user_id: string, local_government?: string | null, name?: string | null, municipal_id?: string | null, user: { __typename?: 'User', first_name?: string | null, last_name?: string | null, email?: string | null, phone?: string | null, fullName?: string | null }, municipal?: { __typename?: 'Municipal', name: string } | null }>, paginatorInfo: { __typename?: 'PaginatorInfo', perPage: number, total: number, currentPage: number } } };
 
 export type ProfileUpdateMutationVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -1212,14 +1217,14 @@ export type UserQueryVariables = Exact<{
 }>;
 
 
-export type UserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, name?: string | null, email?: string | null, notification_email?: string | null, phone?: string | null, first_name?: string | null, last_name?: string | null, middle_name?: string | null, email_verified_at?: any | null, remember_token?: string | null, status?: UserStatus | null, created_at?: any | null, updated_at?: any | null, roles: Array<{ __typename?: 'Role', id: string, name: string }>, profile: { __typename?: 'Profile', id: string, user_id: string } } | null };
+export type UserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, name?: string | null, email?: string | null, notification_email?: string | null, phone?: string | null, first_name?: string | null, last_name?: string | null, middle_name?: string | null, email_verified_at?: any | null, remember_token?: string | null, status?: UserStatus | null, created_at?: any | null, updated_at?: any | null, roles: Array<{ __typename?: 'Role', id: string, name: string }>, profile: { __typename?: 'Profile', id: string, user_id: string, local_government?: string | null, name?: string | null, municipal_id?: string | null } } | null };
 
 export type UserForAdminQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type UserForAdminQuery = { __typename?: 'Query', user?: { __typename?: 'User', email?: string | null, id: string, name?: string | null, phone?: string | null, status?: UserStatus | null, first_name?: string | null, last_name?: string | null, created_at?: any | null, roles: Array<{ __typename?: 'Role', name: string, title: string }>, profile: { __typename?: 'Profile', group_id?: string | null } } | null };
+export type UserForAdminQuery = { __typename?: 'Query', user?: { __typename?: 'User', email?: string | null, id: string, name?: string | null, phone?: string | null, status?: UserStatus | null, first_name?: string | null, last_name?: string | null, created_at?: any | null, roles: Array<{ __typename?: 'Role', name: string, title: string }>, profile: { __typename?: 'Profile', local_government?: string | null, name?: string | null, municipal_id?: string | null } } | null };
 
 export type ShortUsersForSelectorQueryVariables = Exact<{
   first: Scalars['Int']['input'];
@@ -2294,11 +2299,18 @@ export const ProfileDocument = gql`
   profile(id: $id) {
     id
     user_id
+    local_government
+    name
+    municipal_id
     user {
       email
       phone
       first_name
       last_name
+      fullName
+    }
+    municipal {
+      name
     }
   }
 }
@@ -2332,11 +2344,18 @@ export const ProfilesDocument = gql`
     data {
       id
       user_id
+      local_government
+      name
+      municipal_id
       user {
         first_name
         last_name
         email
         phone
+        fullName
+      }
+      municipal {
+        name
       }
     }
     paginatorInfo {
@@ -2583,6 +2602,9 @@ export const UserDocument = gql`
     profile {
       id
       user_id
+      local_government
+      name
+      municipal_id
     }
   }
 }
@@ -2626,7 +2648,9 @@ export const UserForAdminDocument = gql`
     }
     created_at
     profile {
-      group_id
+      local_government
+      name
+      municipal_id
     }
   }
 }

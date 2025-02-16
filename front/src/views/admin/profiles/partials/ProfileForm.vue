@@ -1,11 +1,18 @@
 <script lang="ts" setup>
 import { computed, onMounted, PropType, ref } from 'vue'
-import { Profile, ProfileUpdateInput,useProfileUpdateMutation } from '@/generated/graphqlOperations.js'
+import {
+  MunicipalColumns,
+  Profile,
+  ProfileUpdateInput,
+  SortOrder,
+  useMunicipalsQuery,
+  useProfileUpdateMutation,
+} from '@/generated/graphqlOperations.js'
 import { useErrorsStore } from '@/stores/useErrors.js'
 import { useToast } from 'primevue/usetoast'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-
+import FieldError from '@/components/errors/FieldError.vue'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -32,7 +39,9 @@ const localModel = ref<Partial<ProfileUpdateInput>>()
 
 onMounted(() => {
   localModel.value = {
-    group_id: props?.profile?.group_id,
+    local_government: props?.profile?.local_government,
+    name: props?.profile?.name,
+    municipal_id: props?.profile?.municipal_id,
   }
 })
 
@@ -54,7 +63,9 @@ onDoneUpdate((result) => {
 
 const handleSave = () => {
   const input = {
-    group_id: localModel.value?.group_id,
+    local_government: localModel.value?.local_government,
+    name: localModel.value?.name,
+    municipal_id: localModel.value?.municipal_id,
   }
   updateMutation({
     id: props.id as string,
@@ -64,6 +75,17 @@ const handleSave = () => {
 const handleCancel = () => {
   router.push('/admin/profiles')
 }
+const { result } = useMunicipalsQuery({
+  first: 100,
+  page: 1,
+  orderBy: [
+    {
+      column: MunicipalColumns.Name,
+      order: SortOrder.Asc,
+    },
+  ],
+})
+const municipals = computed(() => result.value?.municipals.data.map((item) => ({ label: item.name, value: item.id })))
 </script>
 
 <template>
@@ -73,25 +95,34 @@ const handleCancel = () => {
         v-if="localModel"
         class="col-12"
       >
-<!--        <div class="flex flex-col gap-4 w-full">
-          <div class="flex flex-col md:flex-row gap-4">
-            <div class="flex flex-wrap gap-2 w-full">
-              <label>Домашняя группа</label>
-              <Select
-                class="w-full"
-                :model-value="localModel.group_id"
-                @update:modelValue="
-                  (value) => {
-                    if (localModel) localModel.group_id = value
-                  }
-                "
-                :options="groups"
-                option-label="name"
-                option-value="id"
-              />
-            </div>
+        <div class="flex flex-col gap-4 w-full">
+          <div class="flex flex-wrap gap-2 w-full">
+            <label>Муниципалитет</label>
+            <Select
+              class="w-full"
+              :model-value="localModel.municipal_id"
+              @update:modelValue="
+                (value) => {
+                  if (localModel) localModel.municipal_id = value
+                }
+              "
+              :options="municipals"
+              option-label="label"
+              option-value="value"
+            />
+            <FieldError field-name="input.municipal_id" />
           </div>
-        </div>-->
+          <div class="flex flex-wrap gap-2 w-full">
+            <label>Орган местного самоуправления/Военного самоуправления</label>
+            <InputText v-model="localModel.local_government" />
+            <FieldError field-name="input.local_government" />
+          </div>
+          <div class="flex flex-wrap gap-2 w-full">
+            <label>Наименование органа</label>
+            <InputText v-model="localModel.name" />
+            <FieldError field-name="input.name" />
+          </div>
+        </div>
 
         <div class="flex flex-row-reverse mt-4">
           <Button

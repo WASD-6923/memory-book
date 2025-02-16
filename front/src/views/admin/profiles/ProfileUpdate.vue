@@ -28,7 +28,7 @@ const profile = computed(() => result.value?.profile as Profile)
         />
         <div class="ml-2">
           <span
-            >Редактирование профиля пользователя: <small>#{{ profile?.user.phone }}</small></span
+            >Редактирование профиля пользователя: <small>#{{ profile?.user.fullName }}</small></span
           >
         </div>
       </div>

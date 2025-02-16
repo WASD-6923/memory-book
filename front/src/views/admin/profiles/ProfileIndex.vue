@@ -76,18 +76,6 @@ onUnmounted(() => {
 
 <template>
   <Card>
-    <template #title>
-      <!--      <div class="flex flex-row justify-between">
-              <div>{{ t('user.users') }}</div>
-              <Button
-                icon="pi pi-user-plus"
-                :label="t('common.add')"
-                size="small"
-                as="router-link"
-                to="/admin/users/create"
-              />
-            </div>-->
-    </template>
     <template #content>
       <ProfileFilterPanel @apply-filter="handleApplyFilter" />
       <DataTable
@@ -118,7 +106,12 @@ onUnmounted(() => {
         </Column>
         <Column header="Имя">
           <template #body="slotProps">
-            {{ slotProps.data.user.first_name }} {{ slotProps.data.user.last_name?.charAt(0) }}.
+            {{ slotProps.data.user.fullName }}
+          </template>
+        </Column>
+        <Column header="Муниципалитет">
+          <template #body="slotProps">
+            {{ slotProps.data.municipal?.name }}
           </template>
         </Column>
         <Column

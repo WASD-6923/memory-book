@@ -18,8 +18,11 @@ query user($id: ID!) {
       name
     }
     profile {
-     id
+      id
       user_id
+      local_government
+      name
+      municipal_id
     }
   }
 }
@@ -39,7 +42,9 @@ query userForAdmin($id: ID!) {
     }
     created_at
     profile {
-      group_id
+      local_government
+      name
+      municipal_id
     }
   }
 }
