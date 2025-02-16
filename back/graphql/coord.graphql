@@ -1,0 +1,35 @@
+const data = {
+query: `
+mutation {
+createData(input: { display_name: "Example Name", keyname: "example_key", description: "Example Description", password: "example_password" }) {
+id
+name
+coordinates {
+latitude
+longitude
+}
+}
+}
+`
+};
+
+fetch('https://geois2.orb.ru/resource/8808', {
+method: 'POST',
+headers: {
+'Content-Type': 'application/json',
+},
+body: JSON.stringify(data),
+})
+.then(response => response.json())
+.then(result => {
+if (result.data && result.data.createData) {
+const { name, coordinates } = result.data.createData;
+console.log('Имя:', name);
+console.log('Координаты:', coordinates);
+} else {
+console.error('Ошибка в ответе:', result);
+}
+})
+.catch(error => {
+console.error('Ошибка:', error);
+});
