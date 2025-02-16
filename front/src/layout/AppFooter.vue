@@ -18,7 +18,7 @@ import LogoIcon from '@/components/LogoIcon.vue'
       target="_blank"
       rel="noopener noreferrer"
       class="text-primary font-bold hover:underline"
-      >группа</a
+      >Techno-hack</a
     >
     {{ new Date().getFullYear() }}
   </div>

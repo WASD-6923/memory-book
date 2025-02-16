@@ -5,6 +5,8 @@ import ConfirmDialog from 'primevue/confirmdialog'
 import AppTopMenu from '@/layout/AppTopMenu.vue'
 import { useLayoutStore } from '@/stores/useLayoutStore.js'
 import AppFooter from "@/layout/AppFooter.vue";
+import TopMenu from "@/views/pages/home/partials/TopMenu.vue";
+
 
 const layoutStore = useLayoutStore()
 </script>
@@ -34,6 +36,15 @@ const layoutStore = useLayoutStore()
             ]"
           ></i>
         </button>
+
+
+        <TopMenu/>
+
+
+
+
+
+
         <Button
           class="lg:!hidden"
           text
@@ -55,23 +66,33 @@ const layoutStore = useLayoutStore()
         >
           <AppTopMenu />
         </div>
-        <button
-          type="button"
-          class="layout-topbar-action hidden lg:flex md: ml-8"
-          @click="layoutStore.toggleDarkMode"
-        >
-          <i
-            :class="[
-              'pi',
-              { 'pi-moon': layoutStore.layoutConfig.darkTheme, 'pi-sun': !layoutStore.layoutConfig.darkTheme },
-            ]"
-          ></i>
-        </button>
+<!--        <button-->
+<!--          type="button"-->
+<!--          class="layout-topbar-action hidden lg:flex md: ml-8"-->
+<!--          @click="layoutStore.toggleDarkMode"-->
+<!--        >-->
+<!--          <i-->
+<!--            :class="[-->
+<!--              'pi',-->
+<!--              { 'pi-moon': layoutStore.layoutConfig.darkTheme, 'pi-sun': !layoutStore.layoutConfig.darkTheme },-->
+<!--            ]"-->
+<!--          ></i>-->
+<!--        </button>-->
       </div>
+
+
+
+      <div>
+        <test />
+      </div>
+
+
+
 
       <div class="flex-grow">
         <RouterView></RouterView>
       </div>
+
 
       <AppFooter />
     </div>

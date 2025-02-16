@@ -34,7 +34,7 @@ const handleSignOut = () => {
         class="px-0 py-4 text-surface-900 dark:text-surface-0 font-medium text-xl"
         to="/"
       >
-        <span class="text-primary">Главная</span>
+
       </RouterLink>
     </li>
     <li v-if="userStore.isLoggedIn">
@@ -61,18 +61,18 @@ const handleSignOut = () => {
       rounded
       v-if="userStore.isLoggedIn"
     ></Button>
-    <Button
-      label="Войти"
-      as="router-link"
-      to="/auth/login"
-      rounded
-      v-if="!userStore.isLoggedIn"
-    ></Button>
-    <!--        <Button
-      label="Register"
-      to="/auth/login"
-      rounded
-    ></Button>-->
+<!--    <Button-->
+<!--      label="Войти"-->
+<!--      as="router-link"-->
+<!--      to="/auth/login"-->
+<!--      rounded-->
+<!--      v-if="!userStore.isLoggedIn"-->
+<!--    ></Button>-->
+<!--          <Button-->
+<!--      label="Register"-->
+<!--      to="/auth/login"-->
+<!--      rounded-->
+<!--    ></Button>-->
   </div>
 </template>
 
