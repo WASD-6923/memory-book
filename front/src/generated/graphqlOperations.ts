@@ -173,6 +173,9 @@ export type Mutation = {
   municipalCreate?: Maybe<Municipal>;
   municipalDelete?: Maybe<Municipal>;
   municipalUpdate?: Maybe<Municipal>;
+  peopleCreate?: Maybe<People>;
+  peopleDelete?: Maybe<People>;
+  peopleUpdate?: Maybe<People>;
   permissionCreate?: Maybe<Permission>;
   permissionDelete?: Maybe<Permission>;
   permissionUpdate?: Maybe<Permission>;
@@ -230,6 +233,22 @@ export type MutationMunicipalDeleteArgs = {
 export type MutationMunicipalUpdateArgs = {
   id: Scalars['ID']['input'];
   input: MunicipalUpdateInput;
+};
+
+
+export type MutationPeopleCreateArgs = {
+  input: PeopleUpdateInput;
+};
+
+
+export type MutationPeopleDeleteArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationPeopleUpdateArgs = {
+  id: Scalars['ID']['input'];
+  input: PeopleUpdateInput;
 };
 
 
@@ -380,6 +399,88 @@ export type PaginatorInfo = {
   total: Scalars['Int']['output'];
 };
 
+export type People = {
+  __typename?: 'People';
+  additional?: Maybe<Scalars['String']['output']>;
+  author: User;
+  awards?: Maybe<Scalars['String']['output']>;
+  biography?: Maybe<Scalars['String']['output']>;
+  birth_date?: Maybe<Scalars['Date']['output']>;
+  birth_place?: Maybe<Scalars['String']['output']>;
+  created_at: Scalars['DateTime']['output'];
+  created_by: Scalars['String']['output'];
+  date_of_death?: Maybe<Scalars['Date']['output']>;
+  deleted_at?: Maybe<Scalars['DateTime']['output']>;
+  first_name: Scalars['String']['output'];
+  gender?: Maybe<PeopleGender>;
+  id: Scalars['ID']['output'];
+  last_name: Scalars['String']['output'];
+  middle_name?: Maybe<Scalars['String']['output']>;
+  military_rank?: Maybe<Scalars['String']['output']>;
+  municipal: Municipal;
+  municipal_id?: Maybe<Scalars['String']['output']>;
+  name_of_military_commissariat?: Maybe<Scalars['String']['output']>;
+  place_of_burial?: Maybe<Scalars['String']['output']>;
+  status?: Maybe<PeopleStatus>;
+  updated_at: Scalars['DateTime']['output'];
+  updated_by: Scalars['String']['output'];
+  updater: User;
+};
+
+export enum PeopleColumns {
+  BirthDate = 'BIRTH_DATE',
+  CreatedAt = 'CREATED_AT',
+  DateOfDeath = 'DATE_OF_DEATH',
+  FirstName = 'FIRST_NAME',
+  Gender = 'GENDER',
+  Id = 'ID',
+  LastName = 'LAST_NAME',
+  MunicipalId = 'MUNICIPAL_ID'
+}
+
+export type PeopleFilter = {
+  municipal_id?: InputMaybe<Scalars['String']['input']>;
+  search?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum PeopleGender {
+  Female = 'FEMALE',
+  Male = 'MALE'
+}
+
+/** A paginated list of People items. */
+export type PeoplePaginator = {
+  __typename?: 'PeoplePaginator';
+  /** A list of People items. */
+  data: Array<People>;
+  /** Pagination information about the list of items. */
+  paginatorInfo: PaginatorInfo;
+};
+
+export enum PeopleStatus {
+  Deleted = 'DELETED',
+  Draft = 'DRAFT',
+  Published = 'PUBLISHED'
+}
+
+export type PeopleUpdateInput = {
+  additional?: InputMaybe<Scalars['String']['input']>;
+  awards?: InputMaybe<Scalars['String']['input']>;
+  biography?: InputMaybe<Scalars['String']['input']>;
+  birth_date?: InputMaybe<Scalars['Date']['input']>;
+  birth_place?: InputMaybe<Scalars['String']['input']>;
+  date_of_death?: InputMaybe<Scalars['Date']['input']>;
+  first_name?: InputMaybe<Scalars['String']['input']>;
+  gender?: InputMaybe<PeopleGender>;
+  last_name?: InputMaybe<Scalars['String']['input']>;
+  middle_name?: InputMaybe<Scalars['String']['input']>;
+  military_rank?: InputMaybe<Scalars['String']['input']>;
+  municipal_id?: InputMaybe<Scalars['String']['input']>;
+  name_of_military_commissariat?: InputMaybe<Scalars['String']['input']>;
+  place_of_burial?: InputMaybe<Scalars['String']['input']>;
+  status?: InputMaybe<PeopleStatus>;
+};
+
 export type Permission = {
   __typename?: 'Permission';
   created_at: Scalars['DateTime']['output'];
@@ -477,6 +578,8 @@ export type Query = {
   municipals: MunicipalPaginator;
   notification?: Maybe<Notification>;
   notifications: NotificationPaginator;
+  people?: Maybe<People>;
+  peoples: PeoplePaginator;
   permission: Permission;
   permissions: Array<Permission>;
   profile?: Maybe<Profile>;
@@ -536,6 +639,21 @@ export type QueryNotificationsArgs = {
   filter?: InputMaybe<NotificationFilter>;
   first?: Scalars['Int']['input'];
   orderBy?: InputMaybe<Array<QueryNotificationsOrderByOrderByClause>>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+/** Indicates what fields are available at the top level of a query operation. */
+export type QueryPeopleArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+/** Indicates what fields are available at the top level of a query operation. */
+export type QueryPeoplesArgs = {
+  filter?: InputMaybe<PeopleFilter>;
+  first?: Scalars['Int']['input'];
+  orderBy?: InputMaybe<Array<QueryPeoplesOrderByOrderByClause>>;
   page?: InputMaybe<Scalars['Int']['input']>;
 };
 
@@ -615,6 +733,14 @@ export type QueryMunicipalsOrderByOrderByClause = {
 export type QueryNotificationsOrderByOrderByClause = {
   /** The column that is used for ordering. */
   column: NotificationColumns;
+  /** The direction that is used for ordering. */
+  order: SortOrder;
+};
+
+/** Order by clause for Query.peoples.orderBy. */
+export type QueryPeoplesOrderByOrderByClause = {
+  /** The column that is used for ordering. */
+  column: PeopleColumns;
   /** The direction that is used for ordering. */
   order: SortOrder;
 };
@@ -945,6 +1071,45 @@ export type MarkAllAsReadMutationVariables = Exact<{ [key: string]: never; }>;
 
 
 export type MarkAllAsReadMutation = { __typename?: 'Mutation', markAllAsRead?: boolean | null };
+
+export type PeopleQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type PeopleQuery = { __typename?: 'Query', people?: { __typename?: 'People', municipal_id?: string | null, first_name: string, last_name: string, middle_name?: string | null, birth_date?: any | null, date_of_death?: any | null, birth_place?: string | null, gender?: PeopleGender | null, name_of_military_commissariat?: string | null, military_rank?: string | null, awards?: string | null, place_of_burial?: string | null, biography?: string | null, additional?: string | null, status?: PeopleStatus | null, created_at: any, updated_at: any, created_by: string, updated_by: string, municipal: { __typename?: 'Municipal', id: string, name: string, type?: MunicipalType | null }, author: { __typename?: 'User', id: string, name?: string | null }, updater: { __typename?: 'User', id: string, name?: string | null } } | null };
+
+export type PeoplesQueryVariables = Exact<{
+  first: Scalars['Int']['input'];
+  page: Scalars['Int']['input'];
+  filter?: InputMaybe<PeopleFilter>;
+  orderBy?: InputMaybe<Array<QueryPeoplesOrderByOrderByClause> | QueryPeoplesOrderByOrderByClause>;
+}>;
+
+
+export type PeoplesQuery = { __typename?: 'Query', peoples: { __typename?: 'PeoplePaginator', data: Array<{ __typename?: 'People', municipal_id?: string | null, first_name: string, last_name: string, middle_name?: string | null, birth_date?: any | null, date_of_death?: any | null, status?: PeopleStatus | null, created_at: any, updated_at: any, municipal: { __typename?: 'Municipal', id: string, name: string, type?: MunicipalType | null }, author: { __typename?: 'User', id: string, name?: string | null }, updater: { __typename?: 'User', id: string, name?: string | null } }>, paginatorInfo: { __typename?: 'PaginatorInfo', currentPage: number, perPage: number, total: number } } };
+
+export type PeopleCreateMutationVariables = Exact<{
+  input: PeopleUpdateInput;
+}>;
+
+
+export type PeopleCreateMutation = { __typename?: 'Mutation', peopleCreate?: { __typename?: 'People', id: string } | null };
+
+export type PeopleUpdateMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+  input: PeopleUpdateInput;
+}>;
+
+
+export type PeopleUpdateMutation = { __typename?: 'Mutation', peopleUpdate?: { __typename?: 'People', id: string } | null };
+
+export type PeopleDeleteMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type PeopleDeleteMutation = { __typename?: 'Mutation', peopleDelete?: { __typename?: 'People', id: string } | null };
 
 export type AdminStatisticsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1780,6 +1945,216 @@ export function useMarkAllAsReadMutation(options: VueApolloComposable.UseMutatio
   return VueApolloComposable.useMutation<MarkAllAsReadMutation, MarkAllAsReadMutationVariables>(MarkAllAsReadDocument, options);
 }
 export type MarkAllAsReadMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<MarkAllAsReadMutation, MarkAllAsReadMutationVariables>;
+export const PeopleDocument = gql`
+    query people($id: ID!) {
+  people(id: $id) {
+    municipal_id
+    first_name
+    last_name
+    middle_name
+    birth_date
+    date_of_death
+    birth_place
+    gender
+    name_of_military_commissariat
+    military_rank
+    awards
+    place_of_burial
+    biography
+    additional
+    status
+    created_at
+    updated_at
+    created_by
+    updated_by
+    municipal {
+      id
+      name
+      type
+    }
+    author {
+      id
+      name
+    }
+    updater {
+      id
+      name
+    }
+  }
+}
+    `;
+
+/**
+ * __usePeopleQuery__
+ *
+ * To run a query within a Vue component, call `usePeopleQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePeopleQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param variables that will be passed into the query
+ * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
+ *
+ * @example
+ * const { result, loading, error } = usePeopleQuery({
+ *   id: // value for 'id'
+ * });
+ */
+export function usePeopleQuery(variables: PeopleQueryVariables | VueCompositionApi.Ref<PeopleQueryVariables> | ReactiveFunction<PeopleQueryVariables>, options: VueApolloComposable.UseQueryOptions<PeopleQuery, PeopleQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<PeopleQuery, PeopleQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<PeopleQuery, PeopleQueryVariables>> = {}) {
+  return VueApolloComposable.useQuery<PeopleQuery, PeopleQueryVariables>(PeopleDocument, variables, options);
+}
+export function usePeopleLazyQuery(variables?: PeopleQueryVariables | VueCompositionApi.Ref<PeopleQueryVariables> | ReactiveFunction<PeopleQueryVariables>, options: VueApolloComposable.UseQueryOptions<PeopleQuery, PeopleQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<PeopleQuery, PeopleQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<PeopleQuery, PeopleQueryVariables>> = {}) {
+  return VueApolloComposable.useLazyQuery<PeopleQuery, PeopleQueryVariables>(PeopleDocument, variables, options);
+}
+export type PeopleQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<PeopleQuery, PeopleQueryVariables>;
+export const PeoplesDocument = gql`
+    query peoples($first: Int!, $page: Int!, $filter: PeopleFilter, $orderBy: [QueryPeoplesOrderByOrderByClause!]) {
+  peoples(first: $first, page: $page, filter: $filter, orderBy: $orderBy) {
+    data {
+      municipal_id
+      first_name
+      last_name
+      middle_name
+      birth_date
+      date_of_death
+      status
+      created_at
+      updated_at
+      municipal {
+        id
+        name
+        type
+      }
+      author {
+        id
+        name
+      }
+      updater {
+        id
+        name
+      }
+    }
+    paginatorInfo {
+      currentPage
+      perPage
+      total
+    }
+  }
+}
+    `;
+
+/**
+ * __usePeoplesQuery__
+ *
+ * To run a query within a Vue component, call `usePeoplesQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePeoplesQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param variables that will be passed into the query
+ * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
+ *
+ * @example
+ * const { result, loading, error } = usePeoplesQuery({
+ *   first: // value for 'first'
+ *   page: // value for 'page'
+ *   filter: // value for 'filter'
+ *   orderBy: // value for 'orderBy'
+ * });
+ */
+export function usePeoplesQuery(variables: PeoplesQueryVariables | VueCompositionApi.Ref<PeoplesQueryVariables> | ReactiveFunction<PeoplesQueryVariables>, options: VueApolloComposable.UseQueryOptions<PeoplesQuery, PeoplesQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<PeoplesQuery, PeoplesQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<PeoplesQuery, PeoplesQueryVariables>> = {}) {
+  return VueApolloComposable.useQuery<PeoplesQuery, PeoplesQueryVariables>(PeoplesDocument, variables, options);
+}
+export function usePeoplesLazyQuery(variables?: PeoplesQueryVariables | VueCompositionApi.Ref<PeoplesQueryVariables> | ReactiveFunction<PeoplesQueryVariables>, options: VueApolloComposable.UseQueryOptions<PeoplesQuery, PeoplesQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<PeoplesQuery, PeoplesQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<PeoplesQuery, PeoplesQueryVariables>> = {}) {
+  return VueApolloComposable.useLazyQuery<PeoplesQuery, PeoplesQueryVariables>(PeoplesDocument, variables, options);
+}
+export type PeoplesQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<PeoplesQuery, PeoplesQueryVariables>;
+export const PeopleCreateDocument = gql`
+    mutation peopleCreate($input: PeopleUpdateInput!) {
+  peopleCreate(input: $input) {
+    id
+  }
+}
+    `;
+
+/**
+ * __usePeopleCreateMutation__
+ *
+ * To run a mutation, you first call `usePeopleCreateMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `usePeopleCreateMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = usePeopleCreateMutation({
+ *   variables: {
+ *     input: // value for 'input'
+ *   },
+ * });
+ */
+export function usePeopleCreateMutation(options: VueApolloComposable.UseMutationOptions<PeopleCreateMutation, PeopleCreateMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<PeopleCreateMutation, PeopleCreateMutationVariables>> = {}) {
+  return VueApolloComposable.useMutation<PeopleCreateMutation, PeopleCreateMutationVariables>(PeopleCreateDocument, options);
+}
+export type PeopleCreateMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<PeopleCreateMutation, PeopleCreateMutationVariables>;
+export const PeopleUpdateDocument = gql`
+    mutation peopleUpdate($id: ID!, $input: PeopleUpdateInput!) {
+  peopleUpdate(id: $id, input: $input) {
+    id
+  }
+}
+    `;
+
+/**
+ * __usePeopleUpdateMutation__
+ *
+ * To run a mutation, you first call `usePeopleUpdateMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `usePeopleUpdateMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = usePeopleUpdateMutation({
+ *   variables: {
+ *     id: // value for 'id'
+ *     input: // value for 'input'
+ *   },
+ * });
+ */
+export function usePeopleUpdateMutation(options: VueApolloComposable.UseMutationOptions<PeopleUpdateMutation, PeopleUpdateMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<PeopleUpdateMutation, PeopleUpdateMutationVariables>> = {}) {
+  return VueApolloComposable.useMutation<PeopleUpdateMutation, PeopleUpdateMutationVariables>(PeopleUpdateDocument, options);
+}
+export type PeopleUpdateMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<PeopleUpdateMutation, PeopleUpdateMutationVariables>;
+export const PeopleDeleteDocument = gql`
+    mutation peopleDelete($id: ID!) {
+  peopleDelete(id: $id) {
+    id
+  }
+}
+    `;
+
+/**
+ * __usePeopleDeleteMutation__
+ *
+ * To run a mutation, you first call `usePeopleDeleteMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `usePeopleDeleteMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = usePeopleDeleteMutation({
+ *   variables: {
+ *     id: // value for 'id'
+ *   },
+ * });
+ */
+export function usePeopleDeleteMutation(options: VueApolloComposable.UseMutationOptions<PeopleDeleteMutation, PeopleDeleteMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<PeopleDeleteMutation, PeopleDeleteMutationVariables>> = {}) {
+  return VueApolloComposable.useMutation<PeopleDeleteMutation, PeopleDeleteMutationVariables>(PeopleDeleteDocument, options);
+}
+export type PeopleDeleteMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<PeopleDeleteMutation, PeopleDeleteMutationVariables>;
 export const AdminStatisticsDocument = gql`
     query adminStatistics {
   adminStatistics {

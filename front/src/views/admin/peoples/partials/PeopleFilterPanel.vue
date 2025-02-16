@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
-import { MunicipalFilter } from '@/generated/graphqlOperations.ts'
+import { computed, ref } from 'vue'
+import { MunicipalColumns, PeopleFilter, SortOrder, useMunicipalsQuery } from '@/generated/graphqlOperations.ts'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { watchDebounced } from '@vueuse/core'
@@ -9,7 +9,7 @@ const router = useRouter()
 const { t } = useI18n()
 const emit = defineEmits(['apply-filter'])
 
-const filterParams = ref<MunicipalFilter>({
+const filterParams = ref<PeopleFilter>({
   search: undefined,
 })
 
@@ -30,6 +30,18 @@ const handleClearFilter = () => {
   filterParams.value = {}
   router.push({ query: filterParams.value })
 }
+
+const { result } = useMunicipalsQuery({
+  first: 100,
+  page: 1,
+  orderBy: [
+    {
+      column: MunicipalColumns.Name,
+      order: SortOrder.Asc,
+    },
+  ],
+})
+const municipals = computed(() => result.value?.municipals.data.map((item) => ({ label: item.name, value: item.id })))
 </script>
 
 <template>
@@ -39,19 +51,19 @@ const handleClearFilter = () => {
         <div class="md:w-full">
           <div class="flex flex-col md:flex-row gap-4 mb-4">
             <div class="flex flex-wrap gap-2 w-full">
-              <label>{{ t('filter.search') }}</label>
+              <label>Поиск (ФИО)</label>
               <InputText v-model.trim="filterParams.search" />
             </div>
-            <!--            <div class="flex flex-wrap gap-2 w-full">
-                          <label>Группа</label>
-                          <Select
-                            class="w-full"
-                            v-model="filterParams.group_id"
-                            :options="groups"
-                            option-label="name"
-                            option-value="id"
-                          />
-                        </div>-->
+            <div class="flex flex-wrap gap-2 w-full">
+              <label>Муниципалитет</label>
+              <Select
+                class="w-full"
+                v-model="filterParams.municipal_id"
+                :options="municipals"
+                option-label="label"
+                option-value="value"
+              />
+            </div>
           </div>
           <div class="flex flex-row gap-2 mt-4">
             <div>

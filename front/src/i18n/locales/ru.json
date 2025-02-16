@@ -63,7 +63,8 @@
     "applicationSamples": "Образцы заявлений",
     "realtyImport": "Импорт объектов недвижимости",
     "userProfiles": "Профили пользователей",
-    "municipals": "МО"
+    "municipals": "МО",
+    "peoples": "Жители"
   },
   "common": {
     "mainTitle": "Недвижимость",

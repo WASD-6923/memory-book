@@ -1,0 +1,80 @@
+type People {
+    id: ID!
+    municipal_id: String
+    first_name: String!
+    last_name: String!
+    middle_name: String
+    birth_date: Date
+    date_of_death: Date
+    birth_place: String
+    gender: PeopleGender
+    name_of_military_commissariat: String
+    military_rank: String
+    awards: String
+    place_of_burial: String
+    biography: String
+    additional: String
+    status: PeopleStatus
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime
+    created_by: String!
+    updated_by: String!
+
+    municipal: Municipal!
+    author: User!
+    updater: User!
+}
+
+enum PeopleColumns {
+    ID @enum(value: "id")
+    MUNICIPAL_ID @enum(value: "municipal_id")
+    FIRST_NAME @enum(value: "first_name")
+    LAST_NAME @enum(value: "last_name")
+    BIRTH_DATE @enum(value: "birth_date")
+    DATE_OF_DEATH @enum(value: "date_of_death")
+    GENDER @enum(value: "gender")
+    CREATED_AT @enum(value: "created_at")
+}
+
+input PeopleFilter {
+    search: String @ilike(key: "name", template: "%{}%")
+    municipal_id: String @where(key: "municipal_id")
+}
+
+input PeopleUpdateInput {
+    municipal_id: String @rules(apply: ["required", "exists:municipals,id"])
+    first_name: String @rules(apply: ["required", "string", "max:255"])
+    last_name: String @rules(apply: ["required", "string", "max:255"])
+    middle_name: String @rules(apply: ["nullable", "string", "max:255"])
+    birth_date: Date @rules(apply: ["nullable", "date"])
+    date_of_death: Date @rules(apply: ["nullable", "date"])
+    birth_place: String @rules(apply: ["nullable", "string", "max:255"])
+    gender: PeopleGender @rules(apply: ["required"])
+    name_of_military_commissariat: String @rules(apply: ["nullable", "string", "max:255"])
+    military_rank: String @rules(apply: ["nullable", "string", "max:255"])
+    awards: String @rules(apply: ["nullable", "string"])
+    place_of_burial: String @rules(apply: ["nullable", "string"])
+    biography: String @rules(apply: ["nullable", "string"])
+    additional: String @rules(apply: ["nullable", "string"])
+    status: PeopleStatus @rules(apply: ["required"])
+}
+
+extend type Query @guard
+{
+    people(id: ID! @eq): People @find
+
+    peoples(
+        first: Int!
+        page: Int!
+        filter: PeopleFilter
+        orderBy: _ @orderBy(columnsEnum: "PeopleColumns")
+    ): [People!]! @paginate(defaultCount: 10) @orderBy(column: "name", direction: ASC)
+}
+
+extend type Mutation @guard
+{
+    peopleCreate(input: PeopleUpdateInput! @spread ): People @create
+    peopleUpdate(id: ID!, input: PeopleUpdateInput! @spread): People @update
+    peopleDelete(id: ID! @eq): People @delete
+}

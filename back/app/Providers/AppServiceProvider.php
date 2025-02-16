@@ -8,6 +8,8 @@ use App\Enums\Auth\AuthProvider;
 use App\Enums\Auth\AuthStage;
 use App\Enums\Location\LocationStatus;
 use App\Enums\Location\LocationType;
+use App\Enums\People\PeopleGender;
+use App\Enums\People\PeopleStatus;
 use App\Enums\Transaction\TransactionCategory;
 use App\Enums\Transaction\TransactionType;
 use App\Enums\User\PermissionGroup;
@@ -41,6 +43,8 @@ class AppServiceProvider extends ServiceProvider
         $typeRegistry->register(new PhpEnumType(AuthMethod::class));
         $typeRegistry->register(new PhpEnumType(AuthStage::class));
         $typeRegistry->register(new PhpEnumType(MunicipalType::class));
+        $typeRegistry->register(new PhpEnumType(PeopleStatus::class));
+        $typeRegistry->register(new PhpEnumType(PeopleGender::class));
 
     }
 

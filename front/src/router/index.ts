@@ -88,6 +88,34 @@ const router = createRouter({
           },
         },
         {
+          path: 'peoples',
+          name: 'adminPeoples',
+          component: () => import('@/views/admin/peoples/PeopleIndex.vue'),
+          meta: {
+            auth: true,
+            admin: true,
+          },
+        },
+        {
+          path: 'peoples/update/:id',
+          name: 'adminPeopleUpdate',
+          component: () => import('@/views/admin/peoples/PeopleUpdate.vue'),
+          meta: {
+            auth: true,
+            admin: true,
+          },
+        },
+        {
+          path: 'peoples/create',
+          name: 'adminPeopleCreate',
+          component: () => import('@/views/admin/peoples/PeopleCreate.vue'),
+          meta: {
+            auth: true,
+            admin: true,
+          },
+        },
+
+        {
           path: 'municipals',
           name: 'adminMunicipals',
           component: () => import('@/views/admin/municipal/MunicipalIndex.vue'),

@@ -16,3 +16,7 @@
 - Docker compose
 - Websocket
 
+#### Запуск локального фронта
+* cp .env.docker .env
+* yarn
+* yarn dev

@@ -1,0 +1,89 @@
+query people($id: ID!) {
+  people(id: $id) {
+    municipal_id
+    first_name
+    last_name
+    middle_name
+    birth_date
+    date_of_death
+    birth_place
+    gender
+    name_of_military_commissariat
+    military_rank
+    awards
+    place_of_burial
+    biography
+    additional
+    status
+    created_at
+    updated_at
+    created_by
+    updated_by
+
+    municipal {
+      id
+      name
+      type
+    }
+    author {
+      id
+      name
+    }
+    updater {
+      id
+      name
+    }
+  }
+}
+
+query peoples($first: Int!, $page: Int!, $filter: PeopleFilter, $orderBy: [QueryPeoplesOrderByOrderByClause!]) {
+  peoples(first: $first, page: $page, filter: $filter, orderBy: $orderBy) {
+    data {
+      municipal_id
+      first_name
+      last_name
+      middle_name
+      birth_date
+      date_of_death
+      status
+      created_at
+      updated_at
+      municipal {
+        id
+        name
+        type
+      }
+      author {
+        id
+        name
+      }
+      updater {
+        id
+        name
+      }
+    }
+    paginatorInfo {
+      currentPage
+      perPage
+      total
+    }
+  }
+}
+
+mutation peopleCreate($input: PeopleUpdateInput!) {
+  peopleCreate(input: $input) {
+    id
+  }
+}
+
+mutation peopleUpdate($id: ID!, $input: PeopleUpdateInput!) {
+  peopleUpdate(id: $id, input: $input) {
+    id
+  }
+}
+
+mutation peopleDelete($id: ID!) {
+  peopleDelete(id: $id) {
+    id
+  }
+}

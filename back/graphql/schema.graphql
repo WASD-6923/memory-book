@@ -37,6 +37,7 @@ type Mutation
 #import Export/ExportFile.graphql
 #import User/Permission.graphql
 #import User/Profile.graphql
+#import People/People.graphql
 #import Statistics/Statistics.graphql
 #import Notification/Notification.graphql
 #import Notification/Subscription.graphql

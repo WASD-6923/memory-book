@@ -171,6 +171,8 @@ return [
             'App\\Models\\Statistics',
             'App\\Models\\Share',
             'App\\Models\\Statistics',
+            'App\\Models\\People',
+
         ],
         'queries' => [
             'App\\GraphQL\\Queries',
