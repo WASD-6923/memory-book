@@ -106,6 +106,15 @@ const router = createRouter({
           },
         },
         {
+          path: 'peoples/view/:id',
+          name: 'adminPeopleView',
+          component: () => import('@/views/admin/peoples/PeopleView.vue'),
+          meta: {
+            auth: true,
+            admin: true,
+          },
+        },
+        {
           path: 'peoples/create',
           name: 'adminPeopleCreate',
           component: () => import('@/views/admin/peoples/PeopleCreate.vue'),

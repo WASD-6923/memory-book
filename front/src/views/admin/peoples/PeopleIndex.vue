@@ -111,7 +111,7 @@ onUnmounted(() => {
           header="ФИО"
         >
           <template #body="slotProps">
-            <RouterLink :to="`/admin/peoples/update/${slotProps.data.id}`">
+            <RouterLink :to="`/admin/peoples/view/${slotProps.data.id}`">
               <div class="text-primary">
                 {{ slotProps.data.last_name }} {{ slotProps.data.first_name }} {{ slotProps.data.middle_name }}
               </div>
@@ -135,13 +135,22 @@ onUnmounted(() => {
         </Column>
         <Column
           :header="t('common.operations')"
-          style="width: 10rem"
+          style="width: 14rem"
         >
           <template #body="slotProps">
+            <Button
+              icon="pi pi-eye"
+              raised
+              rounded
+              severity="info"
+              as="router-link"
+              :to="`peoples/view/${slotProps.data.id}`"
+            />
             <Button
               icon="pi pi-user-edit"
               raised
               rounded
+              class="ml-2"
               severity="success"
               as="router-link"
               :to="`peoples/update/${slotProps.data.id}`"
