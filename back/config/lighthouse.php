@@ -172,6 +172,7 @@ return [
             'App\\Models\\Share',
             'App\\Models\\Statistics',
             'App\\Models\\People',
+            'App\\Models\\War',
 
         ],
         'queries' => [

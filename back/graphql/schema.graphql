@@ -26,6 +26,7 @@ type Version {
 "Indicates what fields are available at the top level of a query operation."
 type Query
 type Mutation
+#import Audit/Audit.graphql
 #import Address/Region.graphql
 #import Address/City.graphql
 #import Address/Municipal.graphql
@@ -41,3 +42,4 @@ type Mutation
 #import Statistics/Statistics.graphql
 #import Notification/Notification.graphql
 #import Notification/Subscription.graphql
+#import War/War.graphql

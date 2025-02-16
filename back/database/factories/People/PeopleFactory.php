@@ -28,6 +28,8 @@ class PeopleFactory extends Factory
             'middle_name' => fake('ru_RU')->firstName(),
             'birth_date' => fake('ru_RU')->dateTimeBetween('-100 years', '-50 years'),
             'date_of_death' => fake('ru_RU')->dateTimeBetween('-50 years', '-10 years'),
+            'lat' => fake()->randomFloat(8, 50, 70),
+            'lon' => fake()->randomFloat(8, 50, 70),
             'birth_place' => fake('ru_RU')->city(),
             'gender' => fake('ru_RU')->randomElement([PeopleGender::MALE, PeopleGender::FEMALE]),
             'name_of_military_commissariat' => fake('ru_RU')->company(),

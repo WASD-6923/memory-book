@@ -14,6 +14,7 @@ class PeopleSeeder extends Seeder
      */
     public function run(): void
     {
+        People::query()->truncate();
         People::factory()->count(500)->create();
     }
 }

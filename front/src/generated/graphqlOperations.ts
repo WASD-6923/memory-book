@@ -186,6 +186,9 @@ export type Mutation = {
   userCreate?: Maybe<User>;
   userDelete: User;
   userUpdate?: Maybe<User>;
+  warCreate?: Maybe<War>;
+  warDelete?: Maybe<War>;
+  warUpdate?: Maybe<War>;
 };
 
 
@@ -305,6 +308,22 @@ export type MutationUserUpdateArgs = {
   input: UserUpdateInput;
 };
 
+
+export type MutationWarCreateArgs = {
+  input: WarUpdateInput;
+};
+
+
+export type MutationWarDeleteArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationWarUpdateArgs = {
+  id: Scalars['ID']['input'];
+  input: WarUpdateInput;
+};
+
 export type Notification = {
   __typename?: 'Notification';
   created_at: Scalars['DateTime']['output'];
@@ -415,6 +434,8 @@ export type People = {
   gender?: Maybe<PeopleGender>;
   id: Scalars['ID']['output'];
   last_name: Scalars['String']['output'];
+  lat?: Maybe<Scalars['Float']['output']>;
+  lon?: Maybe<Scalars['Float']['output']>;
   middle_name?: Maybe<Scalars['String']['output']>;
   military_rank?: Maybe<Scalars['String']['output']>;
   municipal: Municipal;
@@ -473,6 +494,8 @@ export type PeopleUpdateInput = {
   first_name?: InputMaybe<Scalars['String']['input']>;
   gender?: InputMaybe<PeopleGender>;
   last_name?: InputMaybe<Scalars['String']['input']>;
+  lat?: InputMaybe<Scalars['Float']['input']>;
+  lon?: InputMaybe<Scalars['Float']['input']>;
   middle_name?: InputMaybe<Scalars['String']['input']>;
   military_rank?: InputMaybe<Scalars['String']['input']>;
   municipal_id?: InputMaybe<Scalars['String']['input']>;
@@ -594,6 +617,8 @@ export type Query = {
   roles: Array<Role>;
   user?: Maybe<User>;
   users: UserPaginator;
+  war?: Maybe<War>;
+  wars: WarPaginator;
 };
 
 
@@ -718,6 +743,21 @@ export type QueryUsersArgs = {
   page?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
+/** Indicates what fields are available at the top level of a query operation. */
+export type QueryWarArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+/** Indicates what fields are available at the top level of a query operation. */
+export type QueryWarsArgs = {
+  filter?: InputMaybe<WarFilter>;
+  first?: Scalars['Int']['input'];
+  orderBy?: InputMaybe<Array<QueryWarsOrderByOrderByClause>>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+};
+
 /** Order by clause for Query.cities.orderBy. */
 export type QueryCitiesOrderByOrderByClause = {
   /** The column that is used for ordering. */
@@ -778,6 +818,14 @@ export type QueryRolesOrderByOrderByClause = {
 export type QueryUsersOrderByOrderByClause = {
   /** The column that is used for ordering. */
   column: UserColumns;
+  /** The direction that is used for ordering. */
+  order: SortOrder;
+};
+
+/** Order by clause for Query.wars.orderBy. */
+export type QueryWarsOrderByOrderByClause = {
+  /** The column that is used for ordering. */
+  column: WarColumns;
   /** The direction that is used for ordering. */
   order: SortOrder;
 };
@@ -927,6 +975,54 @@ export type UserUpdateInput = {
 export type Version = {
   __typename?: 'Version';
   id: Scalars['ID']['output'];
+};
+
+export type War = {
+  __typename?: 'War';
+  created_at: Scalars['DateTime']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  end_date?: Maybe<Scalars['Date']['output']>;
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  reason?: Maybe<Scalars['String']['output']>;
+  start_date?: Maybe<Scalars['Date']['output']>;
+  status: WarStatus;
+  updated_at: Scalars['DateTime']['output'];
+};
+
+export enum WarColumns {
+  Id = 'ID',
+  Name = 'NAME',
+  Status = 'STATUS'
+}
+
+export type WarFilter = {
+  search?: InputMaybe<Scalars['String']['input']>;
+  status?: InputMaybe<WarStatus>;
+};
+
+/** A paginated list of War items. */
+export type WarPaginator = {
+  __typename?: 'WarPaginator';
+  /** A list of War items. */
+  data: Array<War>;
+  /** Pagination information about the list of items. */
+  paginatorInfo: PaginatorInfo;
+};
+
+export enum WarStatus {
+  Ended = 'Ended',
+  InProcess = 'InProcess',
+  Negotiations = 'Negotiations'
+}
+
+export type WarUpdateInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  end_date?: InputMaybe<Scalars['Date']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  reason?: InputMaybe<Scalars['String']['input']>;
+  start_date?: InputMaybe<Scalars['Date']['input']>;
+  status?: InputMaybe<WarStatus>;
 };
 
 export type CityQueryVariables = Exact<{
@@ -1082,7 +1178,7 @@ export type PeopleQueryVariables = Exact<{
 }>;
 
 
-export type PeopleQuery = { __typename?: 'Query', people?: { __typename?: 'People', municipal_id?: string | null, first_name: string, last_name: string, middle_name?: string | null, birth_date?: any | null, date_of_death?: any | null, birth_place?: string | null, gender?: PeopleGender | null, name_of_military_commissariat?: string | null, military_rank?: string | null, awards?: string | null, place_of_burial?: string | null, biography?: string | null, additional?: string | null, status?: PeopleStatus | null, created_at: any, updated_at: any, created_by: string, updated_by: string, municipal: { __typename?: 'Municipal', id: string, name: string, type?: MunicipalType | null } } | null };
+export type PeopleQuery = { __typename?: 'Query', people?: { __typename?: 'People', municipal_id?: string | null, first_name: string, last_name: string, middle_name?: string | null, birth_date?: any | null, date_of_death?: any | null, lat?: number | null, lon?: number | null, birth_place?: string | null, gender?: PeopleGender | null, name_of_military_commissariat?: string | null, military_rank?: string | null, awards?: string | null, place_of_burial?: string | null, biography?: string | null, additional?: string | null, status?: PeopleStatus | null, created_at: any, updated_at: any, created_by: string, updated_by: string, municipal: { __typename?: 'Municipal', id: string, name: string, type?: MunicipalType | null } } | null };
 
 export type PeoplesQueryVariables = Exact<{
   first: Scalars['Int']['input'];
@@ -1092,7 +1188,7 @@ export type PeoplesQueryVariables = Exact<{
 }>;
 
 
-export type PeoplesQuery = { __typename?: 'Query', peoples: { __typename?: 'PeoplePaginator', data: Array<{ __typename?: 'People', id: string, municipal_id?: string | null, first_name: string, last_name: string, middle_name?: string | null, birth_date?: any | null, date_of_death?: any | null, status?: PeopleStatus | null, created_at: any, updated_at: any, municipal: { __typename?: 'Municipal', id: string, name: string, type?: MunicipalType | null } }>, paginatorInfo: { __typename?: 'PaginatorInfo', currentPage: number, perPage: number, total: number } } };
+export type PeoplesQuery = { __typename?: 'Query', peoples: { __typename?: 'PeoplePaginator', data: Array<{ __typename?: 'People', id: string, municipal_id?: string | null, first_name: string, last_name: string, middle_name?: string | null, birth_date?: any | null, date_of_death?: any | null, lat?: number | null, lon?: number | null, status?: PeopleStatus | null, created_at: any, updated_at: any, municipal: { __typename?: 'Municipal', id: string, name: string, type?: MunicipalType | null } }>, paginatorInfo: { __typename?: 'PaginatorInfo', currentPage: number, perPage: number, total: number } } };
 
 export type PeopleCreateMutationVariables = Exact<{
   input: PeopleUpdateInput;
@@ -1267,6 +1363,45 @@ export type UserDeleteMutationVariables = Exact<{
 
 
 export type UserDeleteMutation = { __typename?: 'Mutation', userDelete: { __typename?: 'User', id: string } };
+
+export type WarQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type WarQuery = { __typename?: 'Query', war?: { __typename?: 'War', id: string, name: string, start_date?: any | null, end_date?: any | null, description?: string | null, reason?: string | null, status: WarStatus } | null };
+
+export type WarsQueryVariables = Exact<{
+  first: Scalars['Int']['input'];
+  page: Scalars['Int']['input'];
+  filter?: InputMaybe<WarFilter>;
+  orderBy?: InputMaybe<Array<QueryWarsOrderByOrderByClause> | QueryWarsOrderByOrderByClause>;
+}>;
+
+
+export type WarsQuery = { __typename?: 'Query', wars: { __typename?: 'WarPaginator', data: Array<{ __typename?: 'War', id: string, name: string, start_date?: any | null, end_date?: any | null, description?: string | null, reason?: string | null, status: WarStatus }>, paginatorInfo: { __typename?: 'PaginatorInfo', currentPage: number, perPage: number, total: number } } };
+
+export type WarCreateMutationVariables = Exact<{
+  input: WarUpdateInput;
+}>;
+
+
+export type WarCreateMutation = { __typename?: 'Mutation', warCreate?: { __typename?: 'War', id: string } | null };
+
+export type WarUpdateMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+  input: WarUpdateInput;
+}>;
+
+
+export type WarUpdateMutation = { __typename?: 'Mutation', warUpdate?: { __typename?: 'War', id: string } | null };
+
+export type WarDeleteMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type WarDeleteMutation = { __typename?: 'Mutation', warDelete?: { __typename?: 'War', id: string } | null };
 
 
 export const CityDocument = gql`
@@ -1959,6 +2094,8 @@ export const PeopleDocument = gql`
     middle_name
     birth_date
     date_of_death
+    lat
+    lon
     birth_place
     gender
     name_of_military_commissariat
@@ -2014,6 +2151,8 @@ export const PeoplesDocument = gql`
       middle_name
       birth_date
       date_of_death
+      lat
+      lon
       status
       created_at
       updated_at
@@ -2863,3 +3002,173 @@ export function useUserDeleteMutation(options: VueApolloComposable.UseMutationOp
   return VueApolloComposable.useMutation<UserDeleteMutation, UserDeleteMutationVariables>(UserDeleteDocument, options);
 }
 export type UserDeleteMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<UserDeleteMutation, UserDeleteMutationVariables>;
+export const WarDocument = gql`
+    query war($id: ID!) {
+  war(id: $id) {
+    id
+    name
+    start_date
+    end_date
+    description
+    reason
+    status
+  }
+}
+    `;
+
+/**
+ * __useWarQuery__
+ *
+ * To run a query within a Vue component, call `useWarQuery` and pass it any options that fit your needs.
+ * When your component renders, `useWarQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param variables that will be passed into the query
+ * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
+ *
+ * @example
+ * const { result, loading, error } = useWarQuery({
+ *   id: // value for 'id'
+ * });
+ */
+export function useWarQuery(variables: WarQueryVariables | VueCompositionApi.Ref<WarQueryVariables> | ReactiveFunction<WarQueryVariables>, options: VueApolloComposable.UseQueryOptions<WarQuery, WarQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<WarQuery, WarQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<WarQuery, WarQueryVariables>> = {}) {
+  return VueApolloComposable.useQuery<WarQuery, WarQueryVariables>(WarDocument, variables, options);
+}
+export function useWarLazyQuery(variables?: WarQueryVariables | VueCompositionApi.Ref<WarQueryVariables> | ReactiveFunction<WarQueryVariables>, options: VueApolloComposable.UseQueryOptions<WarQuery, WarQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<WarQuery, WarQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<WarQuery, WarQueryVariables>> = {}) {
+  return VueApolloComposable.useLazyQuery<WarQuery, WarQueryVariables>(WarDocument, variables, options);
+}
+export type WarQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<WarQuery, WarQueryVariables>;
+export const WarsDocument = gql`
+    query wars($first: Int!, $page: Int!, $filter: WarFilter, $orderBy: [QueryWarsOrderByOrderByClause!]) {
+  wars(first: $first, page: $page, filter: $filter, orderBy: $orderBy) {
+    data {
+      id
+      name
+      start_date
+      end_date
+      description
+      reason
+      status
+    }
+    paginatorInfo {
+      currentPage
+      perPage
+      total
+    }
+  }
+}
+    `;
+
+/**
+ * __useWarsQuery__
+ *
+ * To run a query within a Vue component, call `useWarsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useWarsQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param variables that will be passed into the query
+ * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
+ *
+ * @example
+ * const { result, loading, error } = useWarsQuery({
+ *   first: // value for 'first'
+ *   page: // value for 'page'
+ *   filter: // value for 'filter'
+ *   orderBy: // value for 'orderBy'
+ * });
+ */
+export function useWarsQuery(variables: WarsQueryVariables | VueCompositionApi.Ref<WarsQueryVariables> | ReactiveFunction<WarsQueryVariables>, options: VueApolloComposable.UseQueryOptions<WarsQuery, WarsQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<WarsQuery, WarsQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<WarsQuery, WarsQueryVariables>> = {}) {
+  return VueApolloComposable.useQuery<WarsQuery, WarsQueryVariables>(WarsDocument, variables, options);
+}
+export function useWarsLazyQuery(variables?: WarsQueryVariables | VueCompositionApi.Ref<WarsQueryVariables> | ReactiveFunction<WarsQueryVariables>, options: VueApolloComposable.UseQueryOptions<WarsQuery, WarsQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<WarsQuery, WarsQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<WarsQuery, WarsQueryVariables>> = {}) {
+  return VueApolloComposable.useLazyQuery<WarsQuery, WarsQueryVariables>(WarsDocument, variables, options);
+}
+export type WarsQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<WarsQuery, WarsQueryVariables>;
+export const WarCreateDocument = gql`
+    mutation warCreate($input: WarUpdateInput!) {
+  warCreate(input: $input) {
+    id
+  }
+}
+    `;
+
+/**
+ * __useWarCreateMutation__
+ *
+ * To run a mutation, you first call `useWarCreateMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useWarCreateMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useWarCreateMutation({
+ *   variables: {
+ *     input: // value for 'input'
+ *   },
+ * });
+ */
+export function useWarCreateMutation(options: VueApolloComposable.UseMutationOptions<WarCreateMutation, WarCreateMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<WarCreateMutation, WarCreateMutationVariables>> = {}) {
+  return VueApolloComposable.useMutation<WarCreateMutation, WarCreateMutationVariables>(WarCreateDocument, options);
+}
+export type WarCreateMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<WarCreateMutation, WarCreateMutationVariables>;
+export const WarUpdateDocument = gql`
+    mutation warUpdate($id: ID!, $input: WarUpdateInput!) {
+  warUpdate(id: $id, input: $input) {
+    id
+  }
+}
+    `;
+
+/**
+ * __useWarUpdateMutation__
+ *
+ * To run a mutation, you first call `useWarUpdateMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useWarUpdateMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useWarUpdateMutation({
+ *   variables: {
+ *     id: // value for 'id'
+ *     input: // value for 'input'
+ *   },
+ * });
+ */
+export function useWarUpdateMutation(options: VueApolloComposable.UseMutationOptions<WarUpdateMutation, WarUpdateMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<WarUpdateMutation, WarUpdateMutationVariables>> = {}) {
+  return VueApolloComposable.useMutation<WarUpdateMutation, WarUpdateMutationVariables>(WarUpdateDocument, options);
+}
+export type WarUpdateMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<WarUpdateMutation, WarUpdateMutationVariables>;
+export const WarDeleteDocument = gql`
+    mutation warDelete($id: ID!) {
+  warDelete(id: $id) {
+    id
+  }
+}
+    `;
+
+/**
+ * __useWarDeleteMutation__
+ *
+ * To run a mutation, you first call `useWarDeleteMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useWarDeleteMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useWarDeleteMutation({
+ *   variables: {
+ *     id: // value for 'id'
+ *   },
+ * });
+ */
+export function useWarDeleteMutation(options: VueApolloComposable.UseMutationOptions<WarDeleteMutation, WarDeleteMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<WarDeleteMutation, WarDeleteMutationVariables>> = {}) {
+  return VueApolloComposable.useMutation<WarDeleteMutation, WarDeleteMutationVariables>(WarDeleteDocument, options);
+}
+export type WarDeleteMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<WarDeleteMutation, WarDeleteMutationVariables>;

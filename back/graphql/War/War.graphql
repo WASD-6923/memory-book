@@ -1,0 +1,51 @@
+type War {
+    id: ID!
+    name: String!
+    start_date: Date
+    end_date: Date
+    description: String
+    reason: String
+    status: WarStatus!
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+
+enum WarColumns {
+    ID @enum(value: "id")
+    STATUS @enum(value: "status")
+    NAME @enum(value: "name")
+}
+
+input WarFilter {
+    search: String @ilike(key: "name", template: "%{}%")
+    status: WarStatus @where(key: "status")
+}
+
+input WarUpdateInput {
+    name: String @rules(apply: ["required", "string", "max:255"])
+    start_date: Date @rules(apply: ["required", "date"])
+    end_date: Date @rules(apply: ["nullable", "date"])
+    description: String @rules(apply: ["nullable", "string"])
+    reason: String @rules(apply: ["nullable", "string"])
+    status: WarStatus @rules(apply: ["required"])
+}
+
+extend type Query @guard
+{
+    war(id: ID! @eq): War @find
+
+    wars(
+        first: Int!
+        page: Int!
+        filter: WarFilter
+        orderBy: _ @orderBy(columnsEnum: "WarColumns")
+    ): [War!]! @paginate(defaultCount: 10) @orderBy(column: "name", direction: ASC)
+}
+
+extend type Mutation @guard
+{
+    warCreate(input: WarUpdateInput! @spread ): War @create
+    warUpdate(id: ID!, input: WarUpdateInput! @spread): War @update
+    warDelete(id: ID! @eq): War @delete
+}

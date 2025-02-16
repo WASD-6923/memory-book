@@ -6,17 +6,12 @@ use App\Enums\Address\MunicipalType;
 use App\Enums\Auth\AuthMethod;
 use App\Enums\Auth\AuthProvider;
 use App\Enums\Auth\AuthStage;
-use App\Enums\Location\LocationStatus;
-use App\Enums\Location\LocationType;
 use App\Enums\People\PeopleGender;
 use App\Enums\People\PeopleStatus;
-use App\Enums\Transaction\TransactionCategory;
-use App\Enums\Transaction\TransactionType;
 use App\Enums\User\PermissionGroup;
 use App\Enums\User\UserStatus;
-use App\Models\Address\Municipal;
-use App\Models\Location\Location;
-use App\Models\Location\LocationEvent;
+use App\Enums\War\WarStatus;
+use App\Models\People\People;
 use App\Models\User\Profile;
 use App\Models\User\User;
 use App\Policies\User\UserPolicy;
@@ -45,7 +40,7 @@ class AppServiceProvider extends ServiceProvider
         $typeRegistry->register(new PhpEnumType(MunicipalType::class));
         $typeRegistry->register(new PhpEnumType(PeopleStatus::class));
         $typeRegistry->register(new PhpEnumType(PeopleGender::class));
-
+        $typeRegistry->register(new PhpEnumType(WarStatus::class));
     }
 
     /**
@@ -60,8 +55,7 @@ class AppServiceProvider extends ServiceProvider
         Relation::enforceMorphMap(
             [
                 'user' => User::class,
-                'location' => Location::class,
-                'locationEvent' => LocationEvent::class,
+                'people' => People::class,
                 'profile' => Profile::class,
             ],
         );

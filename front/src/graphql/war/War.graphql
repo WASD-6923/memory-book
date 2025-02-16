@@ -1,0 +1,48 @@
+query war($id: ID!) {
+  war(id: $id) {
+    id
+    name
+    start_date
+    end_date
+    description
+    reason
+    status
+  }
+}
+
+query wars($first: Int!, $page: Int!, $filter: WarFilter, $orderBy: [QueryWarsOrderByOrderByClause!]) {
+  wars(first: $first, page: $page, filter: $filter, orderBy: $orderBy) {
+    data {
+      id
+      name
+      start_date
+      end_date
+      description
+      reason
+      status
+    }
+    paginatorInfo {
+      currentPage
+      perPage
+      total
+    }
+  }
+}
+
+mutation warCreate($input: WarUpdateInput!) {
+  warCreate(input: $input) {
+    id
+  }
+}
+
+mutation warUpdate($id: ID!, $input: WarUpdateInput!) {
+  warUpdate(id: $id, input: $input) {
+    id
+  }
+}
+
+mutation warDelete($id: ID!) {
+  warDelete(id: $id) {
+    id
+  }
+}

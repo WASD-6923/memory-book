@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use OwenIt\Auditing\Contracts\Auditable;
 
 /**
  * Represents the People model.
@@ -46,21 +47,49 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * - gender: PeopleGender
  * - status: PeopleStatus
  */
-class People extends Model
+class People extends Model implements Auditable
 {
     use HasFactory;
     use HasUlids;
     use HasAuthorUpdater;
 
-    protected $table = 'peoples';
+    use \OwenIt\Auditing\Auditable;
 
-    protected $fillable = [
+    protected
+        $table = 'peoples';
+
+    protected $auditInclude = [
         'municipal_id',
         'first_name',
         'last_name',
         'middle_name',
         'birth_date',
         'date_of_death',
+        'lat',
+        'lon',
+        'birth_place',
+        'gender',
+        'name_of_military_commissariat',
+        'military_rank',
+        'awards',
+        'place_of_burial',
+        'biography',
+        'additional',
+        'status',
+    ];
+    protected $auditExclude = [
+
+    ];
+    protected
+        $fillable = [
+        'municipal_id',
+        'first_name',
+        'last_name',
+        'middle_name',
+        'birth_date',
+        'date_of_death',
+        'lat',
+        'lon',
         'birth_place',
         'gender',
         'name_of_military_commissariat',
@@ -74,15 +103,19 @@ class People extends Model
         'updated_by',
     ];
 
-    protected $casts = [
+    protected
+        $casts = [
         'gender' => PeopleGender::class,
         'status' => PeopleStatus::class,
+        'lat' => 'float',
+        'lon' => 'float',
     ];
 
     /**
      * @return BelongsTo
      */
-    public function municipal(): BelongsTo
+    public
+    function municipal(): BelongsTo
     {
         return $this->belongsTo(Municipal::class, 'municipal_id');
     }
@@ -90,7 +123,8 @@ class People extends Model
     /**
      * @return BelongsTo
      */
-    public function author(): BelongsTo
+    public
+    function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
     }
@@ -98,13 +132,17 @@ class People extends Model
     /**
      * @return BelongsTo
      */
-    public function updater(): BelongsTo
+    public
+    function updater(): BelongsTo
     {
         return $this->belongsTo(User::class, 'updated_by');
     }
 
-    public function scopeSearch(Builder $query, string|null $search): Builder
-    {
+    public
+    function scopeSearch(
+        Builder $query,
+        string|null $search,
+    ): Builder {
         if (!$search) {
             return $query;
         }

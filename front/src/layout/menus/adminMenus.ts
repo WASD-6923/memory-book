@@ -28,6 +28,12 @@ const adminMenus: IMenuItem[] = [
         permission: 'menuAdminMunicipals',
       },
       {
+        label: 'sideMenu.wars',
+        icon: 'pi pi-fw pi-building',
+        to: '/admin/wars',
+        permission: 'menuAdminWars',
+      },
+      {
         label: 'sideMenu.users',
         icon: 'pi pi-fw pi-users',
         to: '/admin/users',

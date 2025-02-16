@@ -19,6 +19,8 @@ return new class extends Migration {
             $table->string('middle_name')->nullable();
             $table->date('birth_date')->nullable();
             $table->date('date_of_death')->nullable();
+            $table->float('lat')->nullable();
+            $table->float('lon')->nullable();
             $table->string('birth_place')->nullable();
             $table->unsignedTinyInteger('gender')->default(PeopleGender::MALE);
             $table->string('name_of_military_commissariat')->nullable();

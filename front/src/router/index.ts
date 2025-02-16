@@ -125,6 +125,34 @@ const router = createRouter({
         },
 
         {
+          path: 'wars',
+          name: 'adminWars',
+          component: () => import('@/views/admin/wars/WarIndex.vue'),
+          meta: {
+            auth: true,
+            admin: true,
+          },
+        },
+        {
+          path: 'wars/update/:id',
+          name: 'adminWarUpdate',
+          component: () => import('@/views/admin/wars/WarUpdate.vue'),
+          meta: {
+            auth: true,
+            admin: true,
+          },
+        },
+        {
+          path: 'wars/create',
+          name: 'adminWarCreate',
+          component: () => import('@/views/admin/wars/WarCreate.vue'),
+          meta: {
+            auth: true,
+            admin: true,
+          },
+        },
+
+        {
           path: 'municipals',
           name: 'adminMunicipals',
           component: () => import('@/views/admin/municipal/MunicipalIndex.vue'),

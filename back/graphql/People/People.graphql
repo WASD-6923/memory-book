@@ -6,6 +6,8 @@ type People {
     middle_name: String
     birth_date: Date
     date_of_death: Date
+    lat: Float
+    lon: Float
     birth_place: String
     gender: PeopleGender
     name_of_military_commissariat: String
@@ -49,6 +51,8 @@ input PeopleUpdateInput {
     middle_name: String @rules(apply: ["nullable", "string", "max:255"])
     birth_date: Date @rules(apply: ["nullable", "date"])
     date_of_death: Date @rules(apply: ["nullable", "date"])
+    lat: Float @rules(apply: ["nullable"])
+    lon: Float @rules(apply: ["nullable"])
     birth_place: String @rules(apply: ["nullable", "string", "max:255"])
     gender: PeopleGender @rules(apply: ["required"])
     name_of_military_commissariat: String @rules(apply: ["nullable", "string", "max:255"])

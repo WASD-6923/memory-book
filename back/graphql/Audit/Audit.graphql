@@ -1,0 +1,62 @@
+type Audit  {
+    id: ID!
+    user_type: String
+    user_id: String
+    event: String
+    auditable_type: String
+    auditable_id: String
+    old_values: JSON
+    new_values: JSON
+    url: String
+    ip_address: String
+    user_agent: String
+    created_at: DateTime
+    updated_at: DateTime
+    number: Int
+    auditable_name: String!
+
+    auditable: Auditable! @morphTo
+
+    # Виртуальные Поля
+    userName: String
+}
+
+union Auditable = People
+
+input AuditFilter {
+    id: ID @eq
+    number: Int @where(key: "number")
+    events: [String] @in(key: "event")
+    userIds: [String] @in(key: "user_id")
+    auditableNames: [String] @in(key: "auditable_type")
+    auditable_id: String @where(key: "auditable_id")
+    auditableNumber: Int
+    oldValues: String @ilike(key: "old_values", template: "%{}%")
+    newValues: String @ilike(key: "new_values", template: "%{}%")
+}
+
+enum AuditColumns {
+    ID @enum(value: "id")
+    NUMBER @enum(value: "number")
+    EVENT @enum(value: "event")
+}
+
+extend type Query {
+    audit(
+        id: ID! @eq
+    ): Audit @find
+
+    audits(
+        first: Int!
+        page: Int!
+        filter: AuditFilter
+        orderBy: _ @orderBy(columnsEnum: "AuditColumns")
+    ): [Audit!]! @paginate(defaultCount: 10)  @orderBy(column: "number", direction: DESC)
+
+    auditsByFilter(
+        first: Int!
+        page: Int!
+        filter: AuditFilter
+        orderBy: _ @orderBy(columnsEnum: "AuditColumns")
+    ): [Audit!]! @paginate(resolver: "App\\GraphQL\\Queries\\Audit\\AuditsByFilter")  @orderBy(column: "number", direction: DESC)
+}

@@ -6,6 +6,8 @@ query people($id: ID!) {
     middle_name
     birth_date
     date_of_death
+    lat
+    lon
     birth_place
     gender
     name_of_military_commissariat
@@ -38,6 +40,8 @@ query peoples($first: Int!, $page: Int!, $filter: PeopleFilter, $orderBy: [Query
       middle_name
       birth_date
       date_of_death
+      lat
+      lon
       status
       created_at
       updated_at
